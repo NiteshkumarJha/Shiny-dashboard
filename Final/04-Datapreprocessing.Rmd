@@ -1,0 +1,94 @@
+# DATA PREPROCESSING
+
+In this step, we are setting our **R** system by importing and loading libraries require in this project. Once all important libraries will be installed, we are importing and understanding our rainfall input data.
+
+## Checking  and loading libraries
+
+Here we are checking **R** libraries and if not found in system then we install it.Libraries which are getting used are as below:
+
+ 1. **Data Manipulation**: `data.table`,`dplyr`,`sqldf` and `reshape`
+ 2. **Descriptive Statistics**: `pastecs`,`psych`,`tidyquant`,`nortest` and `tseries`
+ 3. **Data Visulization**: `ggthemes`,`ggplot2` and `scales`
+ 4. **Forecasting**: `forecast` and `Metrics`
+ 5. **Reporting**: `kableExtra` and `pander`
+
+```{r setup}
+list.of.packages <-c("data.table","dplyr","plyr","sqldf",
+                     "reshape","pastecs","psych","tidyquant",
+                     "nortest","tseries","ggthemes","ggplot2",
+                     "scales","forecast","Metrics","kableExtra",
+                     "pander","tidyverse","lubridate","timeSeries",
+                     "magrittr","recipes")
+
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+if(length(new.packages)) install.packages(new.packages)
+pander::pander("All libraries are updated and installed")
+
+```
+
+
+## Load libraries 
+
+Here we load libraries.
+
+```{r message=FALSE, warning=FALSE}
+library(data.table)
+library(dplyr)
+library(plyr)
+library(sqldf)
+library(reshape)
+library(pastecs)
+library(psych)
+library(tidyquant)
+library(nortest)
+library(tseries)
+library(ggthemes)
+library(ggplot2)
+library(scales)
+library(forecast)
+library(Metrics)
+library(kableExtra)
+library(pander)
+library(tidyverse)
+library(lubridate)
+library(timeSeries)
+library(magrittr)
+library(recipes)
+
+pander("All libraries are successfully installed")
+```
+
+## Data Preprocessing
+
+In this step, we are importing data and understanding it.We have obtained this data by secondary research from this source [Indian Institute of Tropical Meteorology](https://tropmet.res.in/static_pages.php?page_id=53).
+
+In this step, we are importing input data and exploring it by some descripitive statistics and graphs.  
+
+
+### *Data Import*
+
+Let's start by loading our data set.For importing the data, we are using `read.csv` function from the base **R** packege.
+```{r message=FALSE, warning=FALSE}
+setwd("D:/A Notes by 1st sem MSc(Nitesh)/Project/project 2/Final")
+rainfall=read.csv('rainfall.csv')
+
+pander("Data loaded successfully")
+
+```
+
+### *Structure of data*
+
+In this step, we are checking structure of our **rainfall** dataset.
+
+```{r message=FALSE, warning=FALSE}
+# Stucture of data
+str(rainfall)
+```
+
+**Findings:**
+
+ > 1. Dataframe consists of 146 observation and 18 variables.
+ 
+ > 2. All variables are numeric except YEAR variable which is integer.
+

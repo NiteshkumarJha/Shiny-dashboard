@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 FORECASTING ANNUAL RAINFALL | A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 FORECASTING ANNUAL RAINFALL | A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 FORECASTING ANNUAL RAINFALL | A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Niteshkumar Jha  Akshay Jadhav" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exploratory-data-analysis.html"/>
+<link rel="next" href="forecasting-monsoon-rainfall.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
+<li class="chapter" data-level="2" data-path="objective.html"><a href="objective.html"><i class="fa fa-check"></i><b>2</b> OBJECTIVE</a></li>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> METHODOLOGY</a></li>
+<li class="chapter" data-level="4" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>4</b> DATA PREPROCESSING</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-preprocessing.html"><a href="data-preprocessing.html#checking-and-loading-libraries"><i class="fa fa-check"></i><b>4.1</b> Checking and loading libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="data-preprocessing.html"><a href="data-preprocessing.html#load-libraries"><i class="fa fa-check"></i><b>4.2</b> Load libraries</a></li>
+<li class="chapter" data-level="4.3" data-path="data-preprocessing.html"><a href="data-preprocessing.html#data-preprocessing-1"><i class="fa fa-check"></i><b>4.3</b> Data Preprocessing</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-preprocessing.html"><a href="data-preprocessing.html#data-import"><i class="fa fa-check"></i><b>4.3.1</b> <em>Data Import</em></a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-preprocessing.html"><a href="data-preprocessing.html#structure-of-data"><i class="fa fa-check"></i><b>4.3.2</b> <em>Structure of data</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>5</b> EXPLORATORY DATA ANALYSIS</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#checking-distribution"><i class="fa fa-check"></i><b>5.2</b> Checking distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#all-series"><i class="fa fa-check"></i><b>5.2.1</b> <em>All series</em></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#annual-rainfall"><i class="fa fa-check"></i><b>5.2.2</b> <strong><em>Annual rainfall</em></strong></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#monsoon-rainfall"><i class="fa fa-check"></i><b>5.2.3</b> <strong><em>Monsoon rainfall</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html"><i class="fa fa-check"></i><b>6</b> FORECASTING ANNUAL RAINFALL</a><ul>
+<li class="chapter" data-level="6.1" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#building-time-series-model"><i class="fa fa-check"></i><b>6.1</b> Building time series model</a></li>
+<li class="chapter" data-level="6.2" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#splitting-into-train-and-test"><i class="fa fa-check"></i><b>6.2.1</b> <strong><em>Splitting into train and test</em></strong></a></li>
+<li class="chapter" data-level="6.2.2" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#converting-data-into-time-series"><i class="fa fa-check"></i><b>6.2.2</b> <strong><em>Converting data into time series</em></strong></a></li>
+<li class="chapter" data-level="6.2.3" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#test-stationary-or-non-stationary"><i class="fa fa-check"></i><b>6.2.3</b> <strong><em>Test Stationary or Non-stationary</em></strong></a></li>
+<li class="chapter" data-level="6.2.4" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#forecasts-using-exponential-smoothing"><i class="fa fa-check"></i><b>6.2.4</b> <strong><em>Forecasts using Exponential Smoothing</em></strong></a></li>
+<li class="chapter" data-level="6.2.5" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#forecasts-using-neural-network-modals"><i class="fa fa-check"></i><b>6.2.5</b> <strong><em>Forecasts using Neural Network Modals</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html"><i class="fa fa-check"></i><b>7</b> FORECASTING MONSOON RAINFALL</a><ul>
+<li class="chapter" data-level="7.1" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#model-building-1"><i class="fa fa-check"></i><b>7.1</b> Model Building</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#splitting-into-train-and-test-1"><i class="fa fa-check"></i><b>7.1.1</b> <strong><em>Splitting into train and test</em></strong></a></li>
+<li class="chapter" data-level="7.1.2" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#converting-data-into-time-series-1"><i class="fa fa-check"></i><b>7.1.2</b> <strong><em>Converting data into time series</em></strong></a></li>
+<li class="chapter" data-level="7.1.3" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#test-stationary-or-non-stationary-1"><i class="fa fa-check"></i><b>7.1.3</b> <strong><em>Test Stationary or Non-stationary</em></strong></a></li>
+<li class="chapter" data-level="7.1.4" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecasts-using-exponential-smoothing-1"><i class="fa fa-check"></i><b>7.1.4</b> <strong><em>Forecasts using Exponential Smoothing</em></strong></a></li>
+<li class="chapter" data-level="7.1.5" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecast-using-arima-model"><i class="fa fa-check"></i><b>7.1.5</b> <em><strong><em>Forecast using ARIMA Model</em></strong></em></a></li>
+<li class="chapter" data-level="7.1.6" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecasts-using-neural-network-modals-1"><i class="fa fa-check"></i><b>7.1.6</b> <strong><em>Forecasts using Neural Network Modals</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> CONCLUSION</a></li>
+<li class="chapter" data-level="9" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>9</b> SESSION INFO</a></li>
+<li class="chapter" data-level="10" data-path="appendex.html"><a href="appendex.html"><i class="fa fa-check"></i><b>10</b> APPENDEX</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>REFERENCES</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="forecasting-annual-rainfall" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> FORECASTING ANNUAL RAINFALL</h1>
+<p>Annual rainfall is the average amount of total rain that a place generally receives.</p>
+<p>When we say annual rainfall of India place is x mm, it does not imply that for a particular year the total rainfall my place received was x mm rather it means in general or on an average my place receives x mm of rainfall annually.</p>
+<p><strong>Time Series:</strong></p>
+<p>A set of ordered observations of a quantitative variables taken at successive points in time is known as ‘Time Series’. In other words , arrangement of statistical data in chronological order, i.e., in accordance with occurrence of time , is known as ‘Time Series’. Time in terms of years , months, days, or hours, is simply device that enables one to relate all phenomenon to a set of common, stable reference points.</p>
+<p>Mathematically, a time series is defined by the functional relationship
+<span class="math display">\[y_t =f(t)\]</span></p>
+<p><strong>Components of time series:</strong></p>
+<p>The various forces at work, affecting the values of a phenomenon in a time series, can be broadly classified into the four categories, commonly known as the components of time series, and they as follows.</p>
+<ul>
+<li>Secular Trend or Long-term movement</li>
+<li>Periodic Changes or Short Term Fluctuations
+<ul>
+<li>Seasonal variations</li>
+<li>Cyclic variations</li>
+</ul></li>
+<li>Random or Irregular Movements</li>
+</ul>
+<p><strong>Mathematical Models for Time Series:</strong></p>
+<p>The Following are the two models commonly used for the decomposition of a time series into components .</p>
+<ol style="list-style-type: decimal">
+<li><p>Decomposition by Additive Model</p>
+<p><span class="math display">\[Y_t = T_t+S_t+C_t+R_t\]</span></p></li>
+<li><p>Decomposition by Multiplicative Model</p>
+<p><span class="math display">\[Y_t = T_t*S_t*C_t*R_t\]</span></p></li>
+</ol>
+<p><strong>Uses of Time Series:</strong></p>
+<ol style="list-style-type: decimal">
+<li>It enables us to study the past behavior of the phenomenon under consideration, i.e., to determine the type and nature of the variations in the data.</li>
+<li>It enables to predict or estimate or forecast the behavior of the phenomenon in future which is very essential for business planning.</li>
+<li>It helps us to compare the changes in the values of different phenomenon at different times or places, etc.</li>
+</ol>
+<p><strong>Prediction and forecasting:</strong></p>
+<p>In statistics, prediction is a part of statistical inference. One particular approach to such inference is known as predictive inference, but the prediction can be undertaken within any of the several approaches to statistical inference. Indeed, one description of statistics is that it provides a means of transferring knowledge about a sample of a population to the whole population, and to other related populations, which is not necessarily the same as prediction over time. When information is transferred across time, often to specific points in time, the process is known as forecasting.</p>
+<ul>
+<li>Fully formed statistical models for stochastic simulation purposes, so as to generate alternative versions of the time series, representing what might happen over non-specific time-periods in the future</li>
+<li>Simple or fully formed statistical models to describe the likely outcome of the time series in the immediate future, given knowledge of the most recent outcomes (forecasting).</li>
+<li>Forecasting on time series is usually done using automated statistical software packages and programming languages, such as Wolfram Mathematica, R, S, SAS, SPSS, Minitab, pandas (Python) and many others.</li>
+<li>Forecasting on large scale data is done using Spark which has spark-ts as a third party package.</li>
+</ul>
+<p><strong>Forecasting:</strong></p>
+<p>Forecasting is the process of making predictions of the future based on past and present data and most commonly by analysis of trends. A commonplace example might be estimation of some variable of interest at some specified future date. Prediction is a similar, but more general term. Both might refer to formal statistical methods employing time series, cross-sectional or longitudinal data, or alternatively to less formal judgmental methods. Usage can differ between areas of application: for example, in hydrology the terms “forecast” and “forecasting” are sometimes reserved for estimates of values at certain specific future times, while the term “prediction” is used for more general estimates, such as the number of times floods will occur over a long period. Risk and uncertainty are central to forecasting and prediction; it is generally considered good practice to indicate the degree of uncertainty attaching to forecasts. In any case, the data must be up to date in order for the forecast to be as accurate as possible. In some cases the data used to predict the variable of interest is itself forecasted.</p>
+<div id="building-time-series-model" class="section level2">
+<h2><span class="header-section-number">6.1</span> Building time series model</h2>
+<p>Let’s start building our time series models. At first, we will plot historical trend of annual rainfall using <code>ggplot2</code> package.</p>
+<p><strong>Plotting Time Series data:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">rainfall<span class="op">%&gt;%</span><span class="kw">ggplot</span>(<span class="kw">aes</span>(YEAR,ANN))<span class="op">+</span><span class="kw">geom_line</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="kw">palette_light</span>()[[<span class="dv">1</span>]], <span class="dt">shape=</span><span class="dv">20</span>,<span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="st">   </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Annual Rainfall in India&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;YEAR&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Annual Rainfall&quot;</span>,</a>
+<a class="sourceLine" id="cb16-4" title="4">       <span class="dt">subtitle =</span> <span class="st">&quot;data from 1871-2016&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="st">    </span><span class="kw">theme_tq</span>()</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-15"></span>
+<img src="Final_files/figure-html/unnamed-chunk-15-1.png" alt="Historical trend of annual rainfall" width="75%" />
+<p class="caption">
+Figure 6.1: Historical trend of annual rainfall
+</p>
+</div>
+<p><strong>Interpretation:</strong></p>
+<ol style="list-style-type: decimal">
+<li>The above figure 6.1 shown the seasonality is present in the data.</li>
+</ol>
+<p><strong>Combo-chart for Annual Rainfall:</strong></p>
+<p>Let’s look at some complex visulization for annual rainfall:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co">#Calculating Mean for ANN</span></a>
+<a class="sourceLine" id="cb17-2" title="2">ANN_mean =<span class="st"> </span><span class="kw">mean</span>(rainfall<span class="op">$</span>ANN)</a>
+<a class="sourceLine" id="cb17-3" title="3"></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="co">#Calculating percentage departure From Mean for ANN</span></a>
+<a class="sourceLine" id="cb17-5" title="5">rainfall<span class="op">$</span>Perc_departure_ANN =<span class="st"> </span>((rainfall<span class="op">$</span>ANN<span class="op">-</span>ANN_mean)<span class="op">/</span>ANN_mean)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb17-6" title="6"></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="co">#plotting combo-chart for ANN</span></a>
+<a class="sourceLine" id="cb17-8" title="8">rainfall1 &lt;-<span class="st"> </span><span class="kw">subset</span>(rainfall, Perc_departure_ANN<span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb17-9" title="9">rainfall2 &lt;-<span class="st"> </span><span class="kw">subset</span>(rainfall, Perc_departure_ANN <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb17-10" title="10"></a>
+<a class="sourceLine" id="cb17-11" title="11"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-12" title="12"><span class="st">     </span><span class="kw">geom_bar</span>(<span class="dt">data =</span> rainfall1, <span class="kw">aes</span>(<span class="dt">x=</span>YEAR, <span class="dt">y=</span>Perc_departure_ANN),</a>
+<a class="sourceLine" id="cb17-13" title="13">              <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;lightgreen&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-14" title="14"><span class="st">     </span><span class="kw">geom_bar</span>(<span class="dt">data =</span> rainfall2, <span class="kw">aes</span>(<span class="dt">x=</span>YEAR, <span class="dt">y=</span>Perc_departure_ANN),</a>
+<a class="sourceLine" id="cb17-15" title="15">              <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;pink&quot;</span>)  <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-16" title="16"><span class="st">  </span><span class="kw">geom_ma</span>(<span class="dt">data =</span> rainfall,<span class="kw">aes</span>(<span class="dt">x=</span> YEAR, <span class="dt">y=</span> Perc_departure_ANN),</a>
+<a class="sourceLine" id="cb17-17" title="17">          <span class="dt">ma_fun =</span> SMA, <span class="dt">n =</span> <span class="dv">11</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-16"></span>
+<img src="Final_files/figure-html/unnamed-chunk-16-1.png" alt="Combo chart of annual rainfall" width="75%" />
+<p class="caption">
+Figure 6.2: Combo chart of annual rainfall
+</p>
+</div>
+<p><strong>Interpretatiion:</strong></p>
+<ol style="list-style-type: decimal">
+<li>The above fig.6.2 shows the trend line of year 1970 to 2016 are mostly decreasing, which shows the annual rainfall data as compaired to past year data is minimum.</li>
+</ol>
+</div>
+<div id="model-building" class="section level2">
+<h2><span class="header-section-number">6.2</span> Model Building</h2>
+<p>Models for time series data can have many forms and represent different stochastic processes. When modeling variations in the level of a process, broad classes of practical importance are Exponential Smoothing models, the autoregressive (AR) models, the integrated (I) models, and the moving average (MA) models. These three classes depend linearly on previous data points. Combinations of these ideas produce autoregressive moving average (ARMA) and autoregressive integrated moving average (ARIMA) models. The autoregressive fractionally integrated moving average (ARFIMA) model generalizes the former three. Extensions of these classes to deal with vector-valued data are available under the heading of multivariate time-series models and sometimes the preceding acronyms are extended by including an initial “V” for “vector”, as in VAR for vector autoregression. An additional set of extensions of these models is available for use where the observed time-series is driven by some “forcing” time-series (which may not have a causal effect on the observed series): the distinction from the multivariate case is that the forcing series may be deterministic or under the experimenter’s control. For these models, the acronyms are extended with a final “X” for “exogenous”.</p>
+<p>Non-linear dependence of the level of a series on previous data points is of interest, partly because of the possibility of producing a chaotic time series. However, more importantly, empirical investigations can indicate the advantage of using predictions derived from non-linear models, over those from linear models, as for example in nonlinear autoregressive exogenous models. Further references on nonlinear time series analysis: (Kantz and Schreiber),and (Abarbanel)</p>
+<p>Among other types of non-linear time series models, there are models to represent the changes of variance over time (heteroskedasticity). These models represent autoregressive conditional heteroskedasticity(ARCH) and the collection comprises a wide variety of representation (GARCH, TARCH, EGARCH, FIGARCH, CGARCH, etc.). Here changes in variability are related to, or predicted by, recent past values of the observed series. This is in contrast to other possible representations of locally varying variability, where the variability might be modelled as being driven by a separate time-varying process, as in a doubly stochastic model.</p>
+<p>In recent work on model-free analyses, wavelet transform based methods (for example locally stationary wavelets and wavelet decomposed neural networks) have gained favor. Multiscale (often referred to as multiresolution) techniques decompose a given time series, attempting to illustrate time dependence at multiple scales. See also Markov switching multifractal (MSMF) techniques for modeling volatility evolution.</p>
+<p>A Hidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process with unobserved (hidden) states. An HMM can be considered as the simplest dynamic Bayesian network. HMM models are widely used in speech recognition, for translating a time series of spoken words into text.</p>
+<p>For building any forecasting model, below are some key step need to follow:</p>
+<ol style="list-style-type: decimal">
+<li>Splitting into train and test:</li>
+</ol>
+<p>For validation mechanism, we are spilitting our datasets into training and testing data.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Identifying the model performance metrics:</li>
+</ol>
+<p>For identification of time series model performance metrics,we are using Scale dependent errors. It is define as forecast errors are on the same scale as the data. Accuracy measures that are based only on error are therefore scale-dependent and cannot be used to make comparisons between series that involve different units.</p>
+<p>The two most commonly used scale-dependent measures are based on the absolute errors or squared errors. We are using below accuracy metrics for our models:</p>
+<ul>
+<li>Mean absolute error(MAE)</li>
+<li>Root mean squared error(RMSE)</li>
+<li>Mean absolute percentage error(MAPE)</li>
+</ul>
+<p>The formula for Mean absolute error(MAE) is as follow:</p>
+<p><span class="math display">\[ MAE = {\frac{1}{n}\sum_{i=1}^{n}(|y_{i} - \hat{y_i}|)}\]</span></p>
+<p>The formula for Root mean squared error(RMSE) is as follow:</p>
+<p><span class="math display">\[ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_{i} - \hat{y_i})^2}\]</span></p>
+<p>When comparing forecast methods applied to a single time series, or to several time series with the same units, the MAE is popular as it is easy to both understand and compute. A forecast method that minimises the MAE will lead to forecasts of the median, while minimising the RMSE will lead to forecasts of the mean. Consequently, the RMSE is also widely used, despite being more difficult to interpret.</p>
+<p>However,it is widely seen reporting any error in Percentage form.
+Percentage errors have the advantage of being unit-free, and so are frequently used to compare forecast performances between data sets. The most commonly used measure is Mean absolute percentage error.</p>
+<p>Formula for MAPE is as below:</p>
+<p><span class="math display">\[MAPE = \frac{1}{n}\sum_{i=1}^{n}\frac{|Actual - Predicted|}{Actual} * 100\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Exploring different time series model</li>
+</ol>
+<p>In this step, we are exploring below time series models:</p>
+<ol style="list-style-type: decimal">
+<li>Simple Exponential Smoothing</li>
+<li>Exponential smoothing</li>
+<li>ARIMA Model</li>
+<li>Neural Network Modals</li>
+</ol>
+<div id="splitting-into-train-and-test" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> <strong><em>Splitting into train and test</em></strong></h3>
+<p>In this step, we are splitting the data to create the train and test subsets. Commonly, 80/20 split is performed. Unlike regression and classification models in which datasets are typically randomized and put into either a train set or test set, time series are not split in a randomized fashion model is built on time related event. When separating time series sets the train set is the the older 80% of observations and the test set is the more recent 20% of observations. The reason we do not randomize the data are because we want to know how well our model is going to predict future observations.</p>
+<ul>
+<li>A model which fits the training data well will not necessarily forecast well.</li>
+<li>A perfect fit can always be obtained by using a model with enough parameters.</li>
+<li>Over-fitting a model to data is just as bad as failing to identify a systematic pattern in the data.</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">series.end &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.8</span><span class="op">*</span><span class="kw">nrow</span>(rainfall)) <span class="co">#select the first 80% of the data</span></a>
+<a class="sourceLine" id="cb18-2" title="2">train &lt;-<span class="st"> </span>rainfall[<span class="dv">1</span><span class="op">:</span>series.end,] <span class="co">#assign the first 80% of the data to the train set</span></a>
+<a class="sourceLine" id="cb18-3" title="3">test &lt;-<span class="st"> </span>rainfall[(series.end<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">nrow</span>(rainfall),] <span class="co">#assign the most recent 20% to the test set</span></a></code></pre></div>
+</div>
+<div id="converting-data-into-time-series" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> <strong><em>Converting data into time series</em></strong></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Convert data frame into time serise object</span></a>
+<a class="sourceLine" id="cb19-2" title="2"></a>
+<a class="sourceLine" id="cb19-3" title="3">train.ts &lt;-<span class="st"> </span><span class="kw">ts</span>(train, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1871</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1986</span>))</a>
+<a class="sourceLine" id="cb19-4" title="4">test.ts &lt;-<span class="st"> </span><span class="kw">ts</span>(test, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1987</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">2016</span>))</a></code></pre></div>
+</div>
+<div id="test-stationary-or-non-stationary" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> <strong><em>Test Stationary or Non-stationary</em></strong></h3>
+<p>The null hypothesis assumes that the series is non-stationary (mean does not stay constant). ADF procedure tests whether the change in Y can be explained by lagged value and a linear trend. If contribution of the lagged value to the change in Y is non-significant and there is a presence of a trend component, the series is non-stationary and null hypothesis will not be rejected.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">pander</span>(<span class="kw">adf.test</span>(train.ts[,<span class="dv">18</span>], <span class="dt">alternative =</span> <span class="st">&quot;stationary&quot;</span>))</a></code></pre></div>
+<table style="width:90%;">
+<caption>Augmented Dickey-Fuller Test: <code>train.ts[, 18]</code></caption>
+<colgroup>
+<col width="23%" />
+<col width="16%" />
+<col width="15%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Test statistic</th>
+<th align="center">Lag order</th>
+<th align="center">P value</th>
+<th align="center">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-4.49</td>
+<td align="center">4</td>
+<td align="center">0.01 * *</td>
+<td align="center">stationary</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong></p>
+<blockquote>
+<p>The annual rainfall data is stationary(p-value = 0.01) by the ADF test hence there is no need of differencing the series.
+Since p-value is less then 5%, we can reject null hypothesis. This means that our series is stationary.</p>
+</blockquote>
+</div>
+<div id="forecasts-using-exponential-smoothing" class="section level3">
+<h3><span class="header-section-number">6.2.4</span> <strong><em>Forecasts using Exponential Smoothing</em></strong></h3>
+<p>Exponential smoothing is a common method for making short-term forecasts in time series data.</p>
+<div id="simple-exponential-smoothing" class="section level4">
+<h4><span class="header-section-number">6.2.4.1</span> <strong><strong><em>Simple Exponential Smoothing</em></strong></strong></h4>
+<p>If we have a time series with constant level and no seasonality, we can use simple exponential smoothing for short term forecasts.</p>
+<p>The simplest of the exponentially smoothing methods is naturally called simple exponential smoothing (SES). This method is suitable for forecasting data with no clear trend or seasonal pattern</p>
+<p>This method is a way of estimating the level at the current time point. Smoothing is controlled by the parameter <code>alpha</code> for the estimate of the level at the current time point. The value of alpha lies between 0 and 1. Values of alpha close to 0 mean that little weight is places on the most recent observations when making forecasts of future values.</p>
+<p>In <strong>R</strong> we can use the <code>HoltWinters()</code> function. For simple exponential smoothing, we need to set the parameters <code>beta = FALSE</code> and <code>gamma = FALSE</code>.</p>
+<p><strong>Key points regading simple exponential smoothing:</strong></p>
+<ol style="list-style-type: decimal">
+<li>The simple exponential smoothing (SES) is a short-range forecasting method that assumes a reasonably stable mean in the data with no trend.</li>
+<li>The exponential smoothing provides an idea that the most recent observations usually give the best guide to the future, therefore we want a weighting scheme with decreasing weights for observations.</li>
+<li>The choice of the smoothing constant is important in determining the operating characteristics of exponential smoothing.</li>
+<li>The smaller the value of alpha , the slower the response. Larger value of alpha cause the smoothed value to react quickly-not only to real changes but also random fluctuations.</li>
+<li>Simple exponential smoothing model is only good for non-seasonal patterns with approximately zero trend and for short term forecasting because we extend past the next period, the forecasted value for that period has to be used as surrogate for the actual demand for any forecast past the next period.</li>
+<li>Consequently, there is no ability to add corrective information (the actual demand) and any error grows exponentially.</li>
+</ol>
+<p><strong>Key points regading Holt-winters:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Holt-Winters smoothing is widely used tool for forecasting business data that contain seasonality, changing trends and seasonal correlation.</li>
+<li>The holt-winter method, also referred to as double exponential smoothing, is an extension of exponential smoothing designed for trended and seasonal time series.</li>
+<li>Holt-Winters forecasting is surprisingly powerful despite its simplicity. It can handle many complicated seasonal patterns by simply finding the central value, then adding in the effects of slope and seasonality.</li>
+</ol>
+<p>Let’s build simple expontional smoothing model.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">options</span>(<span class="st">&quot;scipen&quot;</span>=<span class="dv">100</span>, <span class="st">&quot;digits&quot;</span>=<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="co"># Simple Exponetial Smoothing</span></a>
+<a class="sourceLine" id="cb21-3" title="3">SimpleExpSmooth &lt;-<span class="st"> </span><span class="kw">HoltWinters</span>(train.ts[,<span class="dv">18</span>], <span class="dt">beta=</span><span class="ot">FALSE</span>, <span class="dt">gamma =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb21-4" title="4">SimpleExpSmooth</a></code></pre></div>
+<pre><code>## Holt-Winters exponential smoothing without trend and without seasonal component.
+## 
+## Call:
+## HoltWinters(x = train.ts[, 18], beta = FALSE, gamma = FALSE)
+## 
+## Smoothing parameters:
+##  alpha: 0.018
+##  beta : FALSE
+##  gamma: FALSE
+## 
+## Coefficients:
+##   [,1]
+## a 1086</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># Plotting the estimates</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="co"># plot(SimpleExpSmooth)</span></a>
+<a class="sourceLine" id="cb23-3" title="3"></a>
+<a class="sourceLine" id="cb23-4" title="4">train_forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(SimpleExpSmooth<span class="op">$</span>fitted)</a>
+<a class="sourceLine" id="cb23-5" title="5">train_ANN =<span class="st"> </span>train[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb23-6" title="6">train_ANN =<span class="st"> </span>train_ANN[<span class="dv">2</span><span class="op">:</span><span class="dv">116</span>, ]</a>
+<a class="sourceLine" id="cb23-7" title="7">train_ANN =<span class="st"> </span><span class="kw">cbind</span>(train_ANN, train_forecast)</a>
+<a class="sourceLine" id="cb23-8" title="8">train_ANN<span class="op">$</span>xhat &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb23-9" title="9"><span class="kw">setnames</span>(train_ANN, <span class="st">&quot;level&quot;</span>, <span class="st">&quot;Forecast&quot;</span>)</a>
+<a class="sourceLine" id="cb23-10" title="10"></a>
+<a class="sourceLine" id="cb23-11" title="11">train_ANN<span class="op">$</span>Error =<span class="st"> </span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb23-12" title="12">train_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb23-13" title="13">train_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">/</span>train_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb23-14" title="14"></a>
+<a class="sourceLine" id="cb23-15" title="15"></a>
+<a class="sourceLine" id="cb23-16" title="16">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(train_ANN)</a>
+<a class="sourceLine" id="cb23-17" title="17">MSE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb23-18" title="18">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb23-19" title="19">MAE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb23-20" title="20">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(train_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb23-21" title="21"></a>
+<a class="sourceLine" id="cb23-22" title="22">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb23-23" title="23">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb23-24" title="24"></a>
+<a class="sourceLine" id="cb23-25" title="25">train_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb23-26" title="26">train_statistics<span class="op">$</span>training_set &lt;-<span class="st"> </span>train_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb23-27" title="27">train_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb23-28" title="28"><span class="kw">rownames</span>(train_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb23-29" title="29"></a>
+<a class="sourceLine" id="cb23-30" title="30"></a>
+<a class="sourceLine" id="cb23-31" title="31"><span class="kw">library</span>(forecast)</a>
+<a class="sourceLine" id="cb23-32" title="32">prediction_SES &lt;-<span class="st"> </span><span class="kw">forecast</span>(SimpleExpSmooth, <span class="dt">h=</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb23-33" title="33"><span class="kw">plot</span>(prediction_SES)</a></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-20"></span>
+<img src="Final_files/figure-html/unnamed-chunk-20-1.png" alt="Forecasted value using simple expontional smoothing for Annual Rainfall" width="672" />
+<p class="caption">
+Figure 6.3: Forecasted value using simple expontional smoothing for Annual Rainfall
+</p>
+</div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">Forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(prediction_SES<span class="op">$</span>mean)</a>
+<a class="sourceLine" id="cb24-2" title="2"></a>
+<a class="sourceLine" id="cb24-3" title="3">test_ANN =<span class="st"> </span>test[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb24-4" title="4">test_ANN =<span class="st"> </span><span class="kw">cbind</span>(test_ANN, Forecast)</a>
+<a class="sourceLine" id="cb24-5" title="5">test_ANN =<span class="st"> </span><span class="kw">data.table</span>(test_ANN)</a>
+<a class="sourceLine" id="cb24-6" title="6"><span class="kw">setnames</span>(test_ANN, <span class="st">&#39;x&#39;</span>, <span class="st">&#39;Forecast&#39;</span>)</a>
+<a class="sourceLine" id="cb24-7" title="7"></a>
+<a class="sourceLine" id="cb24-8" title="8">test_ANN<span class="op">$</span>Error =<span class="st"> </span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb24-9" title="9">test_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb24-10" title="10">test_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">/</span>test_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb24-11" title="11"></a>
+<a class="sourceLine" id="cb24-12" title="12"><span class="co">#kable(test_ANN, &quot;latex&quot;,longtable=T,booktabs=T,caption=&quot;Simple Exponential Smoothing forecast of test data&quot;) %&gt;%</span></a>
+<a class="sourceLine" id="cb24-13" title="13"><span class="co">#  kable_styling(latex_options = c(&quot;striped&quot;, &quot;scale_down&quot;))</span></a>
+<a class="sourceLine" id="cb24-14" title="14"></a>
+<a class="sourceLine" id="cb24-15" title="15">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(test_ANN)</a>
+<a class="sourceLine" id="cb24-16" title="16">MSE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb24-17" title="17">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb24-18" title="18">MAE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb24-19" title="19">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(test_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb24-20" title="20"></a>
+<a class="sourceLine" id="cb24-21" title="21">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb24-22" title="22">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb24-23" title="23"></a>
+<a class="sourceLine" id="cb24-24" title="24">test_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb24-25" title="25">test_statistics<span class="op">$</span>testing_set &lt;-<span class="st"> </span>test_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb24-26" title="26">test_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb24-27" title="27"><span class="kw">rownames</span>(test_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb24-28" title="28"></a>
+<a class="sourceLine" id="cb24-29" title="29">Finalresult_SES =<span class="st"> </span><span class="kw">merge</span>(train_statistics, test_statistics, <span class="dt">by =</span><span class="st">&quot;statistics&quot;</span>)</a>
+<a class="sourceLine" id="cb24-30" title="30"></a>
+<a class="sourceLine" id="cb24-31" title="31"><span class="kw">kable</span>(Finalresult_SES, <span class="st">&quot;latex&quot;</span>,<span class="dt">longtable=</span>T,<span class="dt">booktabs=</span>T,<span class="dt">caption=</span><span class="st">&quot;Accuracy Metrics of Annual Rainfall using Simple Exponential Smoothing&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-32" title="32"><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">latex_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>))</a></code></pre></div>
+
+<p><strong>Interpretation:</strong></p>
+<p>1.To make forecasts using simple exponential smoothing in R, we can fit a simple exponential smoothing predictive model using the “HoltWinters()” function in R. To use HoltWinters() for simple exponential smoothing, we need to set the parameters beta=FALSE and gamma=FALSE in the HoltWinters() function (the beta and gamma parameters are used for Holt’s exponential smoothing, or Holt-Winters exponential smoothing</p>
+<p>2.By default, HoltWinters() just makes forecasts for the same time period covered by our original time series. In this case, our original time series included rainfall for All India from 1871-1986, so the forecasts are also for 1871-1986.</p>
+<p>3.The output of HoltWinters() tells us that the estimated value of the alpha parameter is about 0.018. This is very close to zero, telling us that the forecasts are based on both recent and less recent observations (although somewhat more weight is placed on recent observations).</p>
+<p>4.Here the forecasts for 1987-2016 are plotted as a blue line, the 80% prediction interval as an sky blue shaded area, and the 95% prediction interval as a grey shaded area.</p>
+<p>5.From graph, The plot shows the original time series in black, and the forecasts as a blue line. The time series of forecasts is much smoother than the time series of the original data here.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Overall model accuraacy is 92.85% (MAPE = 7.15%) indecating good fit of the model. This model also does not exhibit over-fitting as training and test error are almost same.</li>
+</ol>
+</div>
+<div id="exponential-smoothing" class="section level4">
+<h4><span class="header-section-number">6.2.4.2</span> <strong><strong><em>Exponential Smoothing</em></strong></strong></h4>
+<p>Exponential smoothing is a rule of thumb technique for smoothing time series data using the exponential window function. Whereas in the simple moving average the past observations are weighted equally, exponential functions are used to assign exponentially decreasing weights over time. It is an easily learned and easily applied procedure for making some determination based on prior assumptions by the user, such as seasonality. Exponential smoothing is often used for analysis of time-series data. Exponential smoothing is one of many window functions commonly applied to smooth data in signal processing, acting as low-pass filters to remove high frequency noise. This method is preceded by Poisson’s use of recursive exponential window functions in convolutions from the 19th century, as well as Kolmogorov and Zurbenko’s use of recursive moving averages from their studies of turbulence in the 1940s.</p>
+<p>The raw data sequence is often represented by beginning at time <span class="math inline">\(t = 0\)</span>, and the output of the exponential smoothing algorithm is commonly written as <span class="math inline">\({s_t}\)</span>, which may be regarded as a best estimate of what the next value of <span class="math inline">\(x\)</span> will be. When the sequence of observations begins at time <span class="math inline">\(t = 0\)</span>, the simplest form of exponential smoothing is given by the formulas.</p>
+<p><span class="math display">\[s_0 = x_0\]</span></p>
+<p><span class="math display">\[ s_t =  \alpha x_t + (1 - \alpha) s_{t-1}, t &gt; 0\]</span>
+where <span class="math inline">\(\alpha\)</span> is the smoothing factor, and <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span></p>
+<p>This simple form of exponential smoothing is also known as an exponentially weighted moving average (EWMA). Technically it can also be classified as an autoregressive integrated moving average (ARIMA) (0,1,1) model with no constant term.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">options</span>(<span class="st">&quot;scipen&quot;</span>=<span class="dv">100</span>, <span class="st">&quot;digits&quot;</span>=<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="co"># Exponetial Smoothing</span></a>
+<a class="sourceLine" id="cb25-3" title="3">ExpSmooth &lt;-<span class="st"> </span><span class="kw">HoltWinters</span>(train.ts[,<span class="dv">18</span>], <span class="dt">gamma =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb25-4" title="4">ExpSmooth</a></code></pre></div>
+<pre><code>## Holt-Winters exponential smoothing with trend and without seasonal component.
+## 
+## Call:
+## HoltWinters(x = train.ts[, 18], gamma = FALSE)
+## 
+## Smoothing parameters:
+##  alpha: 0.28
+##  beta : 0.16
+##  gamma: FALSE
+## 
+## Coefficients:
+##     [,1]
+## a 1039.8
+## b   -5.6</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># Plotting the estimates</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="co">#plot(ExpSmooth)</span></a>
+<a class="sourceLine" id="cb27-3" title="3"></a>
+<a class="sourceLine" id="cb27-4" title="4">train_forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(ExpSmooth<span class="op">$</span>fitted)</a>
+<a class="sourceLine" id="cb27-5" title="5">train_ANN =<span class="st"> </span>train[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb27-6" title="6">train_ANN =<span class="st"> </span>train_ANN[<span class="dv">3</span><span class="op">:</span><span class="dv">116</span>, ]</a>
+<a class="sourceLine" id="cb27-7" title="7">train_ANN =<span class="st"> </span><span class="kw">cbind</span>(train_ANN, train_forecast)</a>
+<a class="sourceLine" id="cb27-8" title="8">train_ANN<span class="op">$</span>xhat &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb27-9" title="9"><span class="kw">setnames</span>(train_ANN, <span class="st">&quot;level&quot;</span>, <span class="st">&quot;Forecast&quot;</span>)</a>
+<a class="sourceLine" id="cb27-10" title="10"></a>
+<a class="sourceLine" id="cb27-11" title="11">train_ANN<span class="op">$</span>Error =<span class="st"> </span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb27-12" title="12">train_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb27-13" title="13">train_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">/</span>train_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb27-14" title="14"></a>
+<a class="sourceLine" id="cb27-15" title="15"></a>
+<a class="sourceLine" id="cb27-16" title="16">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(train_ANN)</a>
+<a class="sourceLine" id="cb27-17" title="17">MSE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb27-18" title="18">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb27-19" title="19">MAE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb27-20" title="20">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(train_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb27-21" title="21"></a>
+<a class="sourceLine" id="cb27-22" title="22">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb27-23" title="23">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb27-24" title="24"></a>
+<a class="sourceLine" id="cb27-25" title="25">train_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb27-26" title="26">train_statistics<span class="op">$</span>training_set &lt;-<span class="st"> </span>train_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb27-27" title="27">train_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb27-28" title="28"><span class="kw">rownames</span>(train_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb27-29" title="29"></a>
+<a class="sourceLine" id="cb27-30" title="30"><span class="kw">library</span>(forecast)</a>
+<a class="sourceLine" id="cb27-31" title="31">prediction_SES &lt;-<span class="st"> </span><span class="kw">forecast</span>(ExpSmooth, <span class="dt">h=</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb27-32" title="32"><span class="kw">plot</span>(prediction_SES)</a></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-21"></span>
+<img src="Final_files/figure-html/unnamed-chunk-21-1.png" alt="Forecasted value using expontional smoothing for Annual Rainfall" width="672" />
+<p class="caption">
+Figure 6.4: Forecasted value using expontional smoothing for Annual Rainfall
+</p>
+</div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">Forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(prediction_SES<span class="op">$</span>mean)</a>
+<a class="sourceLine" id="cb28-2" title="2"></a>
+<a class="sourceLine" id="cb28-3" title="3">test_ANN =<span class="st"> </span>test[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb28-4" title="4">test_ANN =<span class="st"> </span><span class="kw">cbind</span>(test_ANN, Forecast)</a>
+<a class="sourceLine" id="cb28-5" title="5">test_ANN =<span class="st"> </span><span class="kw">data.table</span>(test_ANN)</a>
+<a class="sourceLine" id="cb28-6" title="6"><span class="kw">setnames</span>(test_ANN, <span class="st">&#39;x&#39;</span>, <span class="st">&#39;Forecast&#39;</span>)</a>
+<a class="sourceLine" id="cb28-7" title="7"></a>
+<a class="sourceLine" id="cb28-8" title="8">test_ANN<span class="op">$</span>Error =<span class="st"> </span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb28-9" title="9">test_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb28-10" title="10">test_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">/</span>test_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb28-11" title="11"><span class="co">#kable(test_ANN, &quot;latex&quot;,longtable=T,booktabs=T,caption=&quot;Exponential Smoothing forecast of test data&quot;) %&gt;%</span></a>
+<a class="sourceLine" id="cb28-12" title="12"><span class="co">#  kable_styling(latex_options = c(&quot;striped&quot;, &quot;scale_down&quot;))</span></a>
+<a class="sourceLine" id="cb28-13" title="13"></a>
+<a class="sourceLine" id="cb28-14" title="14"></a>
+<a class="sourceLine" id="cb28-15" title="15">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(test_ANN)</a>
+<a class="sourceLine" id="cb28-16" title="16">MSE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb28-17" title="17">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb28-18" title="18">MAE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb28-19" title="19">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(test_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb28-20" title="20"></a>
+<a class="sourceLine" id="cb28-21" title="21">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb28-22" title="22">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb28-23" title="23"></a>
+<a class="sourceLine" id="cb28-24" title="24"></a>
+<a class="sourceLine" id="cb28-25" title="25">test_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb28-26" title="26">test_statistics<span class="op">$</span>testing_set &lt;-<span class="st"> </span>test_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb28-27" title="27">test_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb28-28" title="28"><span class="kw">rownames</span>(test_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb28-29" title="29"></a>
+<a class="sourceLine" id="cb28-30" title="30">Finalresult_ES =<span class="st"> </span><span class="kw">merge</span>(train_statistics, test_statistics, <span class="dt">by =</span><span class="st">&quot;statistics&quot;</span>)</a>
+<a class="sourceLine" id="cb28-31" title="31"></a>
+<a class="sourceLine" id="cb28-32" title="32"><span class="kw">kable</span>(Finalresult_ES, <span class="st">&quot;latex&quot;</span>,<span class="dt">longtable=</span>T,<span class="dt">booktabs=</span>T,<span class="dt">caption=</span><span class="st">&quot;Accuracy Metrics of Annual Rainfall using Exponential Smoothing&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-33" title="33"><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">latex_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>))</a></code></pre></div>
+
+<p><strong>Interpretation:</strong></p>
+<p>1.To make forecasts using exponential smoothing in R, we can fit a simple exponential smoothing predictive model using the “HoltWinters()” function in R. To use HoltWinters() for simple exponential smoothing, we need to set the parameter gamma=FALSE in the HoltWinters() function (the beta and gamma parameters are used for Holt’s exponential smoothing, or Holt-Winters exponential smoothing</p>
+<p>2.By default, HoltWinters() just makes forecasts for the same time period covered by our original time series. In this case, our original time series included rainfall for All India from 1871-1986, so the forecasts are also for 1871-1986.</p>
+<p>3.The output of HoltWinters() tells us that the estimated value of the alpha parameter is about 0.028 and gamma parametre is about 0.16. This is very close to zero, telling us that the forecasts are based on both recent and less recent observations (although somewhat more weight is placed on recent observations).</p>
+<p>4.Here the forecasts for 1987-2016 are plotted as a blue line, the 80% prediction interval as an sky blue shaded area, and the 95% prediction interval as a grey shaded area.</p>
+<p>5.From graph, The plot shows the original time series in black, and the forecasts as a blue line. The time series of forecasts is much smoother than the time series of the original data here
+6. Overall model accuraacy is 88.32% (MAPE = 11.68%) indecating not a very good fit of the model. This model also exhibit some over-fitting as training and test error are little bit different.</p>
+</div>
+<div id="forecasts-using-arima-model" class="section level4">
+<h4><span class="header-section-number">6.2.4.3</span> <strong><strong><em>Forecasts using ARIMA Model</em></strong></strong></h4>
+<p><strong>ARIMA Model:</strong></p>
+<p>ARIMA stands for Autoregressive Integrated Moving Average models. Univariate (single vector) ARIMA is a forecasting technique that projects the future values of a series based entirely on its own inertia. Its main application is in the area of short term forecasting requiring at least 40 historical data points. It works best when your data exhibits a stable or consistent pattern over time with a minimum amount of outliers. Sometimes called Box-Jenkins (after the original authors), ARIMA is usually superior to exponential smoothing techniques when the data is reasonably long and the correlation between past observations is stable. If the data is short or highly volatile, then some smoothing method may perform better. If you do not have at least 38 data points, you should consider some other method than ARIMA.</p>
+<p><strong>Basic Concepts:</strong></p>
+<p>The first step in applying ARIMA methodology is to check for stationarity. “Stationarity” implies that the series remains at a fairly constant level over time. If a trend exists, as in most economic or business applications, then your data is NOT stationary. The data should also show a constant variance in its fluctuations over time. This is easily seen with a series that is heavily seasonal and growing at a faster rate. In such a case, the ups and downs in the seasonality will become more dramatic over time. Without these stationarity conditions being met, many of the calculations associated with the process cannot be computed.</p>
+<p><strong>Differencing:</strong></p>
+<p>If a graphical plot of the data indicates nonstationarity, then you should “difference” the series. Differencing is an excellent way of transforming a nonstationary series to a stationary one. This is done by subtracting the observation in the current period from the previous one. If this transformation is done only once to a series, you say that the data has been “first differenced”. This process essentially eliminates the trend if your series is growing at a fairly constant rate. If it is growing at an increasing rate, you can apply the same procedure and difference the data again. Your data would then be “second differenced”.</p>
+<p><strong>Autocorrelations:</strong></p>
+<p>“Autocorrelations” are numerical values that indicate how a data series is related to itself over time. More precisely, it measures how strongly data values at a specified number of periods apart are correlated to each other over time. The number of periods apart is usually called the “lag”. For example, an autocorrelation at lag 1 measures how values 1 period apart are correlated to one another throughout the series. An autocorrelation at lag 2 measures how the data two periods apart are correlated throughout the series. Autocorrelations may range from +1 to -1. A value close to +1 indicates a high positive correlation while a value close to -1 implies a high negative correlation. These measures are most often evaluated through graphical plots called “correlagrams”. A correlagram plots the auto- correlation values for a given series at different lags. This is referred to as the “autocorrelation function” and is very important in the ARIMA method.</p>
+<p>Let’s start building our ARIMA models. For this, let’s plot ACF and PACF plot to identify order of ARIMA models.</p>
+<p><strong>ACF and PACF Plot</strong></p>
+<p>After a time series has been stationarized by differencing, the next step in fitting an ARIMA model is to determine whether AR or MA terms are needed to correct any autocorrelation that remains in the differenced series.By looking at the autocorrelation function (ACF) and partial autocorrelation (PACF) plots of the differenced series, we can tentatively identify the numbers of AR and/or MA terms that are needed. ACF plot is merely a bar chart of the coefficients of correlation between a time series and lags of itself. The PACF plot is a plot of the partial correlation coefficients between the series and lags of itself.</p>
+<p>In general, the “partial” correlation between two variables is the amount of correlation between them which is not explained by their mutual correlations with a specified set of other variables. For example, if we are regressing a variable <span class="math inline">\(Y\)</span> on other variables <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span>, the partial correlation between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_3\)</span> is the amount of correlation between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_3\)</span> that is not explained by their common correlations with <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. This partial correlation can be computed as the square root of the reduction in variance that is achieved by adding <span class="math inline">\(X_3\)</span> to the regression of <span class="math inline">\(Y\)</span> on <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</p>
+<p>A partial autocorrelation is the amount of correlation between a variable and a lag of itself that is not explained by correlations at all lower-order-lags. The autocorrelation of a time series <span class="math inline">\(Y\)</span> at lag 1 is the coefficient of correlation between <span class="math inline">\(Y_t\)</span> and <span class="math inline">\(Y_{t-1}\)</span>, which is presumably also the correlation between <span class="math inline">\(Y{t-1}\)</span> and <span class="math inline">\(Y_{t-2}\)</span>. But if <span class="math inline">\(Y_t\)</span> is correlated with <span class="math inline">\(Y_{t-1}\)</span>, and <span class="math inline">\(Y_{t-1}\)</span> is equally correlated with <span class="math inline">\(Y_{t-2}\)</span>, then we should also expect to find correlation between <span class="math inline">\(Y_t\)</span> and <span class="math inline">\(Y_{t-2}\)</span>. In fact, the amount of correlation we should expect at lag 2 is precisely the square of the lag-1 correlation. Thus, the correlation at lag 1 “propagates” to lag 2 and presumably to higher-order lags. The partial autocorrelation at lag 2 is therefore the difference between the actual correlation at lag 2 and the expected correlation due to the propagation of correlation at lag 1.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">ggAcf</span>(train.ts[,<span class="dv">18</span>],<span class="dt">main=</span><span class="st">&quot;non differenced data&quot;</span>,<span class="dt">lag=</span><span class="dv">40</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
+<img src="Final_files/figure-html/unnamed-chunk-22-1.png" alt="ACF plot of Annual Rainfall" width="75%" />
+<p class="caption">
+Figure 6.5: ACF plot of Annual Rainfall
+</p>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">ggPacf</span>(train.ts[,<span class="dv">18</span>],<span class="dt">main=</span><span class="st">&quot;non differenced data&quot;</span>,<span class="dt">lag=</span><span class="dv">40</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
+<img src="Final_files/figure-html/unnamed-chunk-23-1.png" alt="PACF plot of Annual Rainfall" width="75%" />
+<p class="caption">
+Figure 6.6: PACF plot of Annual Rainfall
+</p>
+</div>
+<p>** Interpretation:**</p>
+<p>From ACF and PACF plot,
+1. The partial autocorrelations at all lags can be computed by fitting a succession of autoregressive models with increasing numbers of lags.
+2. In particular, the partial autocorrelation at lag k is equal to the estimated AR(k) coefficient in an autoregressive model with k terms–i.e., a multiple regression model in which Y is regressed on LAG(Y,1), LAG(Y,2), etc., up to LAG(Y,k).
+3. Thus, by mere inspection of the PACF you can determine how many AR terms you need to use to explain the autocorrelation pattern in a time series: if the partial autocorrelation is significant at lag k and not significant at any higher order lags–i.e., if the PACF “cuts off” at lag k–then this suggests that you should try fitting an autoregressive model of order k.</p>
+<p><strong>Short note on AR model:</strong></p>
+<p><strong>Autoregrssive model:</strong></p>
+<p>The notation <span class="math inline">\(AR(p)\)</span> refers to the autoregressive model of order <span class="math inline">\(p\)</span>. The <span class="math inline">\(AR(p)\)</span> model is written as</p>
+<p><span class="math display">\[X_t  = c + \sum_i^p[m _X]_{t_-1} +  \epsilon_t\]</span></p>
+<p>where m1,m2,….mp are parameters, c is a constant, and the random variable <span class="math inline">\(\epsilon_t\)</span> is white noise.</p>
+<p>Some constraints are necessary on the values of the parameters so that the model remains stationary. For example, processes in the <span class="math inline">\(AR(1)\)</span> model with <span class="math inline">\(|m_1| = 1\)</span> are not stationary.</p>
+<p><strong>Fitting AR Model</strong></p>
+<p>Let’s fit AR model with order 3. For this, we are using <code>arima</code> function.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">options</span>(<span class="st">&quot;scipen&quot;</span>=<span class="dv">100</span>, <span class="st">&quot;digits&quot;</span>=<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb31-2" title="2"></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="co"># fitting the model</span></a>
+<a class="sourceLine" id="cb31-4" title="4">ar3 &lt;-<span class="st"> </span><span class="kw">arima</span>(train.ts[,<span class="dv">18</span>], <span class="dt">order=</span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb31-5" title="5">ar3</a></code></pre></div>
+<pre><code>## 
+## Call:
+## arima(x = train.ts[, 18], order = c(3, 0, 0))
+## 
+## Coefficients:
+##          ar1    ar2    ar3  intercept
+##       -0.005  0.066  0.103       1089
+## s.e.   0.092  0.092  0.093         11
+## 
+## sigma^2 estimated as 10495:  log likelihood = -702,  aic = 1413</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># calculate train accuracy</span></a>
+<a class="sourceLine" id="cb33-2" title="2">train_forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">fitted</span>(ar3))</a>
+<a class="sourceLine" id="cb33-3" title="3">train_ANN =<span class="st"> </span>train[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="co">#train_ANN = train_ANN[3:116, ]</span></a>
+<a class="sourceLine" id="cb33-5" title="5">train_ANN =<span class="st"> </span><span class="kw">cbind</span>(train_ANN, train_forecast)</a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="kw">setnames</span>(train_ANN, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;Forecast&quot;</span>)</a>
+<a class="sourceLine" id="cb33-7" title="7"></a>
+<a class="sourceLine" id="cb33-8" title="8">train_ANN<span class="op">$</span>Error =<span class="st"> </span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb33-9" title="9">train_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb33-10" title="10">train_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">/</span>train_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb33-11" title="11"></a>
+<a class="sourceLine" id="cb33-12" title="12"></a>
+<a class="sourceLine" id="cb33-13" title="13">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(train_ANN)</a>
+<a class="sourceLine" id="cb33-14" title="14">MSE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb33-15" title="15">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb33-16" title="16">MAE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb33-17" title="17">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(train_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb33-18" title="18"></a>
+<a class="sourceLine" id="cb33-19" title="19">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb33-20" title="20">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb33-21" title="21"></a>
+<a class="sourceLine" id="cb33-22" title="22">train_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb33-23" title="23">train_statistics<span class="op">$</span>training_set &lt;-<span class="st"> </span>train_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb33-24" title="24">train_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb33-25" title="25"><span class="kw">rownames</span>(train_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb33-26" title="26"></a>
+<a class="sourceLine" id="cb33-27" title="27"><span class="co"># forecasting for test data</span></a>
+<a class="sourceLine" id="cb33-28" title="28">ar3_forecast &lt;-<span class="st"> </span><span class="kw">forecast</span>(ar3,<span class="dt">h =</span> <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb33-29" title="29"></a>
+<a class="sourceLine" id="cb33-30" title="30"><span class="co"># plotting the forecasted series</span></a>
+<a class="sourceLine" id="cb33-31" title="31"><span class="kw">plot</span>(ar3_forecast)</a></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-24"></span>
+<img src="Final_files/figure-html/unnamed-chunk-24-1.png" alt="Forecasted value using AR model for Annual Rainfall" width="672" />
+<p class="caption">
+Figure 6.7: Forecasted value using AR model for Annual Rainfall
+</p>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># calculate test accuracy</span></a>
+<a class="sourceLine" id="cb34-2" title="2">Forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(ar3_forecast<span class="op">$</span>mean)</a>
+<a class="sourceLine" id="cb34-3" title="3">test_ANN =<span class="st"> </span>test[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb34-4" title="4">test_ANN =<span class="st"> </span><span class="kw">cbind</span>(test_ANN, Forecast)</a>
+<a class="sourceLine" id="cb34-5" title="5">test_ANN =<span class="st"> </span><span class="kw">data.table</span>(test_ANN)</a>
+<a class="sourceLine" id="cb34-6" title="6"><span class="kw">setnames</span>(test_ANN, <span class="st">&#39;x&#39;</span>, <span class="st">&#39;Forecast&#39;</span>)</a>
+<a class="sourceLine" id="cb34-7" title="7"></a>
+<a class="sourceLine" id="cb34-8" title="8">test_ANN<span class="op">$</span>Error =<span class="st"> </span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb34-9" title="9">test_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb34-10" title="10">test_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">/</span>test_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb34-11" title="11"><span class="co">#kable(test_ANN, &quot;latex&quot;,longtable=T,booktabs=T,caption=&quot;ARIMA Model of forecasting&quot;) %&gt;%</span></a>
+<a class="sourceLine" id="cb34-12" title="12"><span class="co">#  kable_styling(latex_options = c(&quot;striped&quot;, &quot;scale_down&quot;))</span></a>
+<a class="sourceLine" id="cb34-13" title="13"></a>
+<a class="sourceLine" id="cb34-14" title="14">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(test_ANN)</a>
+<a class="sourceLine" id="cb34-15" title="15">MSE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb34-16" title="16">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb34-17" title="17">MAE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb34-18" title="18">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(test_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb34-19" title="19"></a>
+<a class="sourceLine" id="cb34-20" title="20">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb34-21" title="21">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb34-22" title="22"></a>
+<a class="sourceLine" id="cb34-23" title="23">test_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb34-24" title="24">test_statistics<span class="op">$</span>testing_set &lt;-<span class="st"> </span>test_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb34-25" title="25">test_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb34-26" title="26"><span class="kw">rownames</span>(test_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb34-27" title="27"></a>
+<a class="sourceLine" id="cb34-28" title="28"><span class="co"># summarising the model results</span></a>
+<a class="sourceLine" id="cb34-29" title="29">Finalresult_ar3 =<span class="st"> </span><span class="kw">merge</span>(train_statistics, test_statistics, <span class="dt">by =</span><span class="st">&quot;statistics&quot;</span>)</a>
+<a class="sourceLine" id="cb34-30" title="30"></a>
+<a class="sourceLine" id="cb34-31" title="31"><span class="kw">kable</span>(Finalresult_ar3, <span class="st">&quot;latex&quot;</span>,<span class="dt">longtable=</span>T,<span class="dt">booktabs=</span>T,<span class="dt">caption=</span><span class="st">&quot;Accuracy Metrics of Annual Rainfall using AR Model&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb34-32" title="32"><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">latex_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>))</a></code></pre></div>
+
+<p><strong>Interpretation:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Overall model accuraacy is 92.81% (MAPE = 7.19%) indecating good fit of the model. This model also does not exhibit over-fitting as training and test error are almost same.</li>
+</ol>
+</div>
+</div>
+<div id="forecasts-using-neural-network-modals" class="section level3">
+<h3><span class="header-section-number">6.2.5</span> <strong><em>Forecasts using Neural Network Modals</em></strong></h3>
+<p>Reading some forecasting papers we saw that many technicians use Artificial Neural Networks. We realized that deepening this powerful method with our knowledge would take more time than we had. We decided to choose two known statistics methods, which still gave good results, to be compared later with a simple Neural Networks. This tool has proven to be more difficult than we thought, and the results have not been as good as expected.</p>
+<p>Artificial neural networks are forecasting methods that are based on simple mathematical models of the brain. They allow complex nonlinear relationships between the response variable and its predictors.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">options</span>(<span class="st">&quot;scipen&quot;</span>=<span class="dv">100</span>, <span class="st">&quot;digits&quot;</span>=<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb35-2" title="2"></a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="co"># fitting the model</span></a>
+<a class="sourceLine" id="cb35-4" title="4">NN &lt;-<span class="st"> </span><span class="kw">nnetar</span>(train.ts[,<span class="dv">18</span>])</a>
+<a class="sourceLine" id="cb35-5" title="5">NN</a></code></pre></div>
+<pre><code>## Series: train.ts[, 18] 
+## Model:  NNAR(1,1) 
+## Call:   nnetar(y = train.ts[, 18])
+## 
+## Average of 20 networks, each of which is
+## a 1-1-1 network with 4 weights
+## options were - linear output units 
+## 
+## sigma^2 estimated as 10525</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># calculate train accuracy</span></a>
+<a class="sourceLine" id="cb37-2" title="2">train_forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(NN<span class="op">$</span>fitted)</a>
+<a class="sourceLine" id="cb37-3" title="3">train_ANN =<span class="st"> </span>train[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="co">#train_ANN = train_ANN[2:116, ]</span></a>
+<a class="sourceLine" id="cb37-5" title="5">train_ANN =<span class="st"> </span><span class="kw">cbind</span>(train_ANN, train_forecast)</a>
+<a class="sourceLine" id="cb37-6" title="6"><span class="kw">setnames</span>(train_ANN, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;Forecast&quot;</span>)</a>
+<a class="sourceLine" id="cb37-7" title="7"></a>
+<a class="sourceLine" id="cb37-8" title="8">train_ANN =<span class="st"> </span>train_ANN[<span class="dv">2</span><span class="op">:</span><span class="dv">116</span>,]</a>
+<a class="sourceLine" id="cb37-9" title="9">train_ANN<span class="op">$</span>Error =<span class="st"> </span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb37-10" title="10">train_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb37-11" title="11">train_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(train_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>train_ANN<span class="op">$</span>Forecast)<span class="op">/</span>train_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb37-12" title="12"></a>
+<a class="sourceLine" id="cb37-13" title="13">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(train_ANN)</a>
+<a class="sourceLine" id="cb37-14" title="14">MSE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb37-15" title="15">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb37-16" title="16">MAE =<span class="st"> </span><span class="kw">sum</span>(train_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb37-17" title="17">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(train_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb37-18" title="18"></a>
+<a class="sourceLine" id="cb37-19" title="19">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb37-20" title="20">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb37-21" title="21"></a>
+<a class="sourceLine" id="cb37-22" title="22">train_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb37-23" title="23">train_statistics<span class="op">$</span>training_set &lt;-<span class="st"> </span>train_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb37-24" title="24">train_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb37-25" title="25"><span class="kw">rownames</span>(train_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb37-26" title="26"></a>
+<a class="sourceLine" id="cb37-27" title="27"><span class="co"># forecasting for test data</span></a>
+<a class="sourceLine" id="cb37-28" title="28">NN_forecast &lt;-<span class="st"> </span><span class="kw">forecast</span>(NN,<span class="dt">h =</span> <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb37-29" title="29"></a>
+<a class="sourceLine" id="cb37-30" title="30"><span class="co"># plotting the forecasted series</span></a>
+<a class="sourceLine" id="cb37-31" title="31"><span class="kw">plot</span>(NN_forecast)</a></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-25"></span>
+<img src="Final_files/figure-html/unnamed-chunk-25-1.png" alt="Forecasted value using Neural network for Annual Rainfall" width="672" />
+<p class="caption">
+Figure 6.8: Forecasted value using Neural network for Annual Rainfall
+</p>
+</div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="co"># calculate test accuracy</span></a>
+<a class="sourceLine" id="cb38-2" title="2">Forecast =<span class="st"> </span><span class="kw">as.data.frame</span>(NN_forecast<span class="op">$</span>mean)</a>
+<a class="sourceLine" id="cb38-3" title="3">test_ANN =<span class="st"> </span>test[,<span class="kw">c</span>(<span class="st">&quot;YEAR&quot;</span>, <span class="st">&quot;ANN&quot;</span>)]</a>
+<a class="sourceLine" id="cb38-4" title="4">test_ANN =<span class="st"> </span><span class="kw">cbind</span>(test_ANN, Forecast)</a>
+<a class="sourceLine" id="cb38-5" title="5">test_ANN =<span class="st"> </span><span class="kw">data.table</span>(test_ANN)</a>
+<a class="sourceLine" id="cb38-6" title="6"><span class="kw">setnames</span>(test_ANN, <span class="st">&#39;x&#39;</span>, <span class="st">&#39;Forecast&#39;</span>)</a>
+<a class="sourceLine" id="cb38-7" title="7"></a>
+<a class="sourceLine" id="cb38-8" title="8">test_ANN<span class="op">$</span>Error =<span class="st"> </span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb38-9" title="9">test_ANN<span class="op">$</span>AbsError =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)</a>
+<a class="sourceLine" id="cb38-10" title="10">test_ANN<span class="op">$</span>APE =<span class="st"> </span><span class="kw">abs</span>(test_ANN<span class="op">$</span>ANN <span class="op">-</span><span class="st"> </span>test_ANN<span class="op">$</span>Forecast)<span class="op">/</span>test_ANN<span class="op">$</span>ANN</a>
+<a class="sourceLine" id="cb38-11" title="11"><span class="co">#kable(test_ANN, &quot;latex&quot;,longtable=T,booktabs=T,caption=&quot;Neural Network Modals of forecasting&quot;) %&gt;%</span></a>
+<a class="sourceLine" id="cb38-12" title="12"><span class="co">#  kable_styling(latex_options = c(&quot;striped&quot;, &quot;scale_down&quot;))</span></a>
+<a class="sourceLine" id="cb38-13" title="13"></a>
+<a class="sourceLine" id="cb38-14" title="14">SampleSize =<span class="st"> </span><span class="kw">nrow</span>(test_ANN)</a>
+<a class="sourceLine" id="cb38-15" title="15">MSE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>Error)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb38-16" title="16">RMSE =<span class="st"> </span><span class="kw">sqrt</span>(MSE)</a>
+<a class="sourceLine" id="cb38-17" title="17">MAE =<span class="st"> </span><span class="kw">sum</span>(test_ANN<span class="op">$</span>AbsError)<span class="op">/</span>SampleSize</a>
+<a class="sourceLine" id="cb38-18" title="18">MAPE =<span class="st"> </span>(<span class="kw">sum</span>(test_ANN<span class="op">$</span>APE)<span class="op">/</span>SampleSize)<span class="op">*</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb38-19" title="19"></a>
+<a class="sourceLine" id="cb38-20" title="20">statistics =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SampleSize&quot;</span>, <span class="st">&quot;MSE&quot;</span>, <span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)</a>
+<a class="sourceLine" id="cb38-21" title="21">Value =<span class="st"> </span><span class="kw">rbind</span>(SampleSize, MSE, RMSE, MAE, MAPE)</a>
+<a class="sourceLine" id="cb38-22" title="22"></a>
+<a class="sourceLine" id="cb38-23" title="23">test_statistics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(statistics, Value))</a>
+<a class="sourceLine" id="cb38-24" title="24">test_statistics<span class="op">$</span>testing_set &lt;-<span class="st"> </span>test_statistics<span class="op">$</span>V2</a>
+<a class="sourceLine" id="cb38-25" title="25">test_statistics<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb38-26" title="26"><span class="kw">rownames</span>(test_statistics) &lt;-<span class="st">  </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb38-27" title="27"></a>
+<a class="sourceLine" id="cb38-28" title="28"><span class="co"># summarising the model results</span></a>
+<a class="sourceLine" id="cb38-29" title="29">Finalresult_NN =<span class="st"> </span><span class="kw">merge</span>(train_statistics, test_statistics, <span class="dt">by =</span><span class="st">&quot;statistics&quot;</span>)</a>
+<a class="sourceLine" id="cb38-30" title="30"></a>
+<a class="sourceLine" id="cb38-31" title="31"><span class="kw">kable</span>(Finalresult_NN, <span class="st">&quot;latex&quot;</span>,<span class="dt">longtable=</span>T,<span class="dt">booktabs=</span>T,<span class="dt">caption=</span><span class="st">&quot;Accuracy Metrics of Annual Rainfall using Neural Network Modals&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-32" title="32"><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">latex_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>))</a></code></pre></div>
+
+<p><strong>Interpretation:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Overall model accuraacy is 92.80% (MAPE = 7.20%) indecating good fit of the model. This model also does not exhibit over-fitting as training and test error are almost same.</li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="forecasting-monsoon-rainfall.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Final.pdf", "Final.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

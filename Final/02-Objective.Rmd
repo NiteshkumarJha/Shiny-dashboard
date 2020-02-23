@@ -1,0 +1,11 @@
+# OBJECTIVE
+
+The objective of this study is to understand historical trend of rainfall in India. By understanding past behaviour, we are also trying to build a forecasting model for future rainfall.We are primarily analysing below two variables:
+
+ 1. Annual Rainfall
+ 2. Masoon Rainfall
+
+Detail exploratory analysis will be performed which will throw insight on nature of rainfall historically and machine learning techniques will be explored for model building.
+A comparative study will also be perform to check best forecasting model.
+
+

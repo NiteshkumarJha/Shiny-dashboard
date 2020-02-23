@@ -1,0 +1,653 @@
+# FORECASTING ANNUAL RAINFALL
+
+Annual rainfall is the average amount of total rain that a place generally receives.
+
+When we say annual rainfall of India place is x mm, it does not imply that for a particular year the total rainfall my place received was x mm rather it means in general or on an average my place receives x mm of rainfall annually.
+
+**Time Series:**
+
+A set of ordered observations of a quantitative variables taken at successive points in time is known as ‘Time Series’. In other words , arrangement of statistical data in chronological order, i.e., in accordance with occurrence of time , is known as ‘Time Series’. Time in terms of years , months, days, or hours, is simply  device that enables one to relate all phenomenon to a set of common, stable reference points.
+
+Mathematically, a time series is defined by the functional relationship 
+$$y_t =f(t)$$ 
+
+**Components of time series:**
+
+The various forces at work, affecting the values of a phenomenon in a time series, can be broadly classified into the four categories, commonly known as the components of time series, and they as follows.
+
+ + Secular Trend or Long-term movement
+ + Periodic Changes or Short Term Fluctuations
+    + Seasonal variations
+    + Cyclic variations
+ + Random or Irregular Movements
+ 
+**Mathematical  Models for Time Series:**
+
+The Following are the two models commonly used for the decomposition of a time series into components .
+
+ 1. Decomposition by Additive  Model
+
+    $$Y_t = T_t+S_t+C_t+R_t$$
+
+ 2. Decomposition by Multiplicative Model
+
+    $$Y_t = T_t*S_t*C_t*R_t$$
+
+**Uses of Time Series:**
+
+ 1. It enables us to study the past behavior of the phenomenon under consideration, i.e., to determine the type and nature of the variations in the data.
+ 2. It enables to predict or estimate or forecast the behavior of the phenomenon in future which is very essential for business planning.
+ 3. It helps us to compare the changes in the values of different phenomenon at different times or places, etc.
+
+**Prediction and forecasting:**
+
+In statistics, prediction is a part of statistical inference. One particular approach to such inference is known as predictive inference, but the prediction can be undertaken within any of the several approaches to statistical inference. Indeed, one description of statistics is that it provides a means of transferring knowledge about a sample of a population to the whole population, and to other related populations, which is not necessarily the same as prediction over time. When information is transferred across time, often to specific points in time, the process is known as forecasting.
+ 
+ + Fully formed statistical models for stochastic simulation purposes, so as to generate alternative versions of the time series, representing what might happen over non-specific time-periods in the future
+ + Simple or fully formed statistical models to describe the likely outcome of the time series in the immediate future, given knowledge of the most recent outcomes (forecasting).
+ + Forecasting on time series is usually done using automated statistical software packages and programming languages, such as Wolfram Mathematica, R, S, SAS, SPSS, Minitab, pandas (Python) and many others.
+ + Forecasting on large scale data is done using Spark which has spark-ts as a third party package.
+
+**Forecasting:**
+
+Forecasting is the process of making predictions of the future based on past and present data and most commonly by analysis of trends. A commonplace example might be estimation of some variable of interest at some specified future date. Prediction is a similar, but more general term. Both might refer to formal statistical methods employing time series, cross-sectional or longitudinal data, or alternatively to less formal judgmental methods. Usage can differ between areas of application: for example, in hydrology the terms "forecast" and "forecasting" are sometimes reserved for estimates of values at certain specific future times, while the term "prediction" is used for more general estimates, such as the number of times floods will occur over a long period. Risk and uncertainty are central to forecasting and prediction; it is generally considered good practice to indicate the degree of uncertainty attaching to forecasts. In any case, the data must be up to date in order for the forecast to be as accurate as possible. In some cases the data used to predict the variable of interest is itself forecasted.
+
+## Building time series model
+
+Let's start building our time series models. At first, we will plot historical trend of annual rainfall using `ggplot2` package.
+
+**Plotting Time Series data:**
+
+```{r message=FALSE, warning=FALSE,fig.cap="Historical trend of annual rainfall",out.width='75%',fig.align='center'}
+
+rainfall%>%ggplot(aes(YEAR,ANN))+geom_line()+
+  geom_point(alpha = 0.5, color = palette_light()[[1]], shape=20,size=2) +
+   labs(title = "Annual Rainfall in India", x = "YEAR", y = "Annual Rainfall",
+       subtitle = "data from 1871-2016") +
+    theme_tq()
+```
+
+**Interpretation:**
+
+ 1. The above figure 6.1 shown the seasonality is present in the data.
+
+
+**Combo-chart for Annual Rainfall:**
+
+Let's look at some complex visulization for annual rainfall:
+
+```{r message=FALSE, warning=FALSE,fig.cap="Combo chart of annual rainfall",out.width='75%',fig.align='center'}
+#Calculating Mean for ANN
+ANN_mean = mean(rainfall$ANN)
+
+#Calculating percentage departure From Mean for ANN
+rainfall$Perc_departure_ANN = ((rainfall$ANN-ANN_mean)/ANN_mean)*100
+
+#plotting combo-chart for ANN
+rainfall1 <- subset(rainfall, Perc_departure_ANN>= 0)
+rainfall2 <- subset(rainfall, Perc_departure_ANN < 0)
+
+ggplot() + 
+     geom_bar(data = rainfall1, aes(x=YEAR, y=Perc_departure_ANN),
+              stat = "identity",colour = "lightgreen") +
+     geom_bar(data = rainfall2, aes(x=YEAR, y=Perc_departure_ANN),
+              stat = "identity",colour = "pink")  + 
+  geom_ma(data = rainfall,aes(x= YEAR, y= Perc_departure_ANN),
+          ma_fun = SMA, n = 11, color = "blue",size = 1)
+  
+```
+
+**Interpretatiion:**
+
+ 1. The above fig.6.2 shows the trend line of year 1970 to 2016 are mostly decreasing,  which shows the annual rainfall data as compaired to past year data is minimum.
+
+## Model Building
+
+Models for time series data can have many forms and represent different stochastic processes. When modeling variations in the level of a process, broad classes of practical importance are Exponential Smoothing models, the autoregressive (AR) models, the integrated (I) models, and the moving average (MA) models. These three classes depend linearly on previous data points. Combinations of these ideas produce autoregressive moving average (ARMA) and autoregressive integrated moving average (ARIMA) models. The autoregressive fractionally integrated moving average (ARFIMA) model generalizes the former three. Extensions of these classes to deal with vector-valued data are available under the heading of multivariate time-series models and sometimes the preceding acronyms are extended by including an initial "V" for "vector", as in VAR for vector autoregression. An additional set of extensions of these models is available for use where the observed time-series is driven by some "forcing" time-series (which may not have a causal effect on the observed series): the distinction from the multivariate case is that the forcing series may be deterministic or under the experimenter's control. For these models, the acronyms are extended with a final "X" for "exogenous".
+
+Non-linear dependence of the level of a series on previous data points is of interest, partly because of the possibility of producing a chaotic time series. However, more importantly, empirical investigations can indicate the advantage of using predictions derived from non-linear models, over those from linear models, as for example in nonlinear autoregressive exogenous models. Further references on nonlinear time series analysis: (Kantz and Schreiber),and (Abarbanel)
+
+Among other types of non-linear time series models, there are models to represent the changes of variance over time (heteroskedasticity). These models represent autoregressive conditional heteroskedasticity(ARCH) and the collection comprises a wide variety of representation (GARCH, TARCH, EGARCH, FIGARCH, CGARCH, etc.). Here changes in variability are related to, or predicted by, recent past values of the observed series. This is in contrast to other possible representations of locally varying variability, where the variability might be modelled as being driven by a separate time-varying process, as in a doubly stochastic model.
+
+In recent work on model-free analyses, wavelet transform based methods (for example locally stationary wavelets and wavelet decomposed neural networks) have gained favor. Multiscale (often referred to as multiresolution) techniques decompose a given time series, attempting to illustrate time dependence at multiple scales. See also Markov switching multifractal (MSMF) techniques for modeling volatility evolution.
+
+A Hidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process with unobserved (hidden) states. An HMM can be considered as the simplest dynamic Bayesian network. HMM models are widely used in speech recognition, for translating a time series of spoken words into text.
+
+For building any forecasting model, below are some key step need to follow:
+
+ 1. Splitting into train and test:
+ 
+For validation mechanism, we are spilitting our datasets into training and testing data.
+ 
+ 2. Identifying the model performance metrics:
+
+For identification of time series model performance metrics,we are using Scale dependent errors. It is define as forecast errors are on the same scale as the data. Accuracy measures that are based only on error are therefore scale-dependent and cannot be used to make comparisons between series that involve different units.
+
+The two most commonly used scale-dependent measures are based on the absolute errors or squared errors. We are using below accuracy metrics for our models:
+
+ + Mean absolute error(MAE)
+ + Root mean squared error(RMSE)
+ + Mean absolute percentage error(MAPE)
+
+The formula for Mean absolute error(MAE) is as follow:
+
+$$ MAE = {\frac{1}{n}\sum_{i=1}^{n}(|y_{i} - \hat{y_i}|)}$$
+
+The formula for Root mean squared error(RMSE) is as follow:
+
+$$ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_{i} - \hat{y_i})^2}$$
+
+
+
+When comparing forecast methods applied to a single time series, or to several time series with the same units, the MAE is popular as it is easy to both understand and compute. A forecast method that minimises the MAE will lead to forecasts of the median, while minimising the RMSE will lead to forecasts of the mean. Consequently, the RMSE is also widely used, despite being more difficult to interpret.
+
+However,it is widely seen reporting any error in Percentage form.
+Percentage errors have the advantage of being unit-free, and so are frequently used to compare forecast performances between data sets. The most commonly used measure is Mean absolute percentage error.
+
+Formula for MAPE is as below:
+
+$$MAPE = \frac{1}{n}\sum_{i=1}^{n}\frac{|Actual - Predicted|}{Actual} * 100$$
+
+ 
+ 3. Exploring different time series model
+ 
+In this step, we are exploring below time series models:
+ 
+ 1. Simple Exponential Smoothing
+ 2. Exponential smoothing
+ 3. ARIMA Model
+ 4. Neural Network Modals
+
+### ***Splitting into train and test***
+
+In this step, we are splitting the data to create the train and test subsets. Commonly, 80/20 split is performed. Unlike regression and classification models in which datasets are typically randomized and put into either a train set or test set, time series are not split in a randomized fashion model is built on time related event. When separating time series sets the train set is the the older 80% of observations and the test set is the more recent 20% of observations. The reason we do not randomize the data are because we want to know how well our model is going to predict future observations.
+
+ + A model which fits the training data well will not necessarily forecast well.
+ + A perfect fit can always be obtained by using a model with enough parameters.
+ + Over-fitting a model to data is just as bad as failing to identify a systematic pattern in the data.
+
+
+```{r message=FALSE, warning=FALSE}
+
+series.end <- floor(0.8*nrow(rainfall)) #select the first 80% of the data
+train <- rainfall[1:series.end,] #assign the first 80% of the data to the train set
+test <- rainfall[(series.end+1):nrow(rainfall),] #assign the most recent 20% to the test set
+
+```
+
+
+### ***Converting data into time series***
+
+```{r message=FALSE, warning=FALSE}
+# Convert data frame into time serise object
+
+train.ts <- ts(train, start = c(1871), end = c(1986))
+test.ts <- ts(test, start = c(1987), end = c(2016))
+
+```
+
+### ***Test Stationary or Non-stationary***
+
+The null hypothesis assumes that the series is non-stationary (mean does not stay constant). ADF procedure tests whether the change in Y can be explained by lagged value and a linear trend. If contribution of the lagged value to the change in Y is non-significant and there is a presence of a trend component, the series is non-stationary and null hypothesis will not be rejected.
+
+```{r message=FALSE, warning=FALSE}
+
+pander(adf.test(train.ts[,18], alternative = "stationary"))
+
+```
+
+**Interpretation:**
+ 
+> The annual rainfall data is stationary(p-value = 0.01) by the ADF test hence there is no need of differencing the series.
+> Since p-value is less then 5%, we can reject null hypothesis. This means that our series is stationary.
+
+
+### ***Forecasts using Exponential Smoothing***
+
+Exponential smoothing is a common method for making short-term forecasts in time series data.
+
+#### __***Simple Exponential Smoothing***__
+
+If we have a time series with constant level and no seasonality, we can use simple exponential smoothing for short term forecasts.
+
+The simplest of the exponentially smoothing methods is naturally called simple exponential smoothing (SES). This method is suitable for forecasting data with no clear trend or seasonal pattern
+
+This method is a way of estimating the level at the current time point. Smoothing is controlled by the parameter `alpha` for the estimate of the level at the current time point. The value of alpha lies between 0 and 1. Values of alpha close to 0 mean that little weight is places on the most recent observations when making forecasts of future values.
+
+In **R** we can use the `HoltWinters()` function. For simple exponential smoothing, we need to set the parameters `beta = FALSE` and `gamma = FALSE`.
+
+**Key points regading simple exponential smoothing:**
+
+ 1. The simple exponential smoothing (SES) is a short-range forecasting method that assumes a reasonably stable mean in the data with no trend.
+ 2. The exponential smoothing provides an idea that the most recent observations usually give the best guide to the future, therefore we want a weighting scheme with decreasing weights for observations.
+ 3. The choice of the smoothing constant is important in determining the operating characteristics of exponential smoothing.
+ 4. The smaller the value of alpha , the slower the response. Larger value of alpha cause the smoothed value to react quickly-not only to real changes but also random fluctuations.
+ 5. Simple exponential smoothing model is only good for non-seasonal patterns with approximately zero trend and for short term forecasting because we extend past the next period, the forecasted value for that period has to be used as surrogate for the actual demand for any forecast past the next period.
+ 6. Consequently, there is no ability to add corrective information (the actual demand) and any error grows exponentially.   
+ 
+**Key points regading Holt-winters:** 
+
+ 1. Holt-Winters smoothing is widely used tool for forecasting business data that contain seasonality, changing trends and seasonal correlation.
+ 2. The holt-winter method, also referred to as double exponential smoothing, is an extension of exponential smoothing designed for trended and seasonal time series.
+ 3. Holt-Winters forecasting is surprisingly powerful despite its simplicity. It can handle many complicated seasonal patterns by simply finding the central value, then adding in the effects of slope and seasonality.
+ 
+	 
+Let's build simple expontional smoothing model.
+
+```{r message=FALSE, warning=FALSE,fig.cap="Forecasted value using simple expontional smoothing for Annual Rainfall"}
+options("scipen"=100, "digits"=2)
+# Simple Exponetial Smoothing
+SimpleExpSmooth <- HoltWinters(train.ts[,18], beta=FALSE, gamma = FALSE)
+SimpleExpSmooth
+
+# Plotting the estimates
+# plot(SimpleExpSmooth)
+
+train_forecast = as.data.frame(SimpleExpSmooth$fitted)
+train_ANN = train[,c("YEAR", "ANN")]
+train_ANN = train_ANN[2:116, ]
+train_ANN = cbind(train_ANN, train_forecast)
+train_ANN$xhat <- NULL
+setnames(train_ANN, "level", "Forecast")
+
+train_ANN$Error = (train_ANN$ANN - train_ANN$Forecast)^2
+train_ANN$AbsError = abs(train_ANN$ANN - train_ANN$Forecast)
+train_ANN$APE = abs(train_ANN$ANN - train_ANN$Forecast)/train_ANN$ANN
+
+
+SampleSize = nrow(train_ANN)
+MSE = sum(train_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(train_ANN$AbsError)/SampleSize
+MAPE = (sum(train_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+train_statistics <- data.frame(cbind(statistics, Value))
+train_statistics$training_set <- train_statistics$V2
+train_statistics$V2 <- NULL
+rownames(train_statistics) <-  NULL
+
+
+library(forecast)
+prediction_SES <- forecast(SimpleExpSmooth, h=30)
+plot(prediction_SES)
+Forecast = as.data.frame(prediction_SES$mean)
+
+test_ANN = test[,c("YEAR", "ANN")]
+test_ANN = cbind(test_ANN, Forecast)
+test_ANN = data.table(test_ANN)
+setnames(test_ANN, 'x', 'Forecast')
+
+test_ANN$Error = (test_ANN$ANN - test_ANN$Forecast)^2
+test_ANN$AbsError = abs(test_ANN$ANN - test_ANN$Forecast)
+test_ANN$APE = abs(test_ANN$ANN - test_ANN$Forecast)/test_ANN$ANN
+
+#kable(test_ANN, "latex",longtable=T,booktabs=T,caption="Simple Exponential Smoothing forecast of test data") %>%
+#  kable_styling(latex_options = c("striped", "scale_down"))
+
+SampleSize = nrow(test_ANN)
+MSE = sum(test_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(test_ANN$AbsError)/SampleSize
+MAPE = (sum(test_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+test_statistics <- data.frame(cbind(statistics, Value))
+test_statistics$testing_set <- test_statistics$V2
+test_statistics$V2 <- NULL
+rownames(test_statistics) <-  NULL
+
+Finalresult_SES = merge(train_statistics, test_statistics, by ="statistics")
+
+kable(Finalresult_SES, "latex",longtable=T,booktabs=T,caption="Accuracy Metrics of Annual Rainfall using Simple Exponential Smoothing") %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
+
+**Interpretation:**
+
+ 1.To make forecasts using simple exponential smoothing in R, we can fit a simple exponential smoothing predictive model using the “HoltWinters()” function in R. To use HoltWinters() for simple exponential smoothing, we need to set the parameters beta=FALSE and gamma=FALSE in the HoltWinters() function (the beta and gamma parameters are used for Holt’s exponential smoothing, or Holt-Winters exponential smoothing
+ 
+ 2.By default, HoltWinters() just makes forecasts for the same time period covered by our original time series. In this case, our original time series included rainfall for All India from 1871-1986, so the forecasts are also for 1871-1986.
+ 
+ 3.The output of HoltWinters() tells us that the estimated value of the alpha parameter is about 0.018. This is very close to zero, telling us that the forecasts are based on both recent and less recent observations (although somewhat more weight is placed on recent observations).
+ 
+ 4.Here the forecasts for 1987-2016 are plotted as a blue line, the 80% prediction interval as an sky blue shaded area, and the 95% prediction interval as a grey shaded area.
+ 
+ 5.From graph, The plot shows the original time series in black, and the forecasts as a blue line. The time series of forecasts is much smoother than the time series of the original data here.
+ 
+ 6. Overall model accuraacy is 92.85% (MAPE = 7.15%) indecating good fit of the model. This model also does not exhibit over-fitting as training and test error are almost same.
+
+#### __***Exponential Smoothing***__
+
+Exponential smoothing is a rule of thumb technique for smoothing time series data using the exponential window function. Whereas in the simple moving average the past observations are weighted equally, exponential functions are used to assign exponentially decreasing weights over time. It is an easily learned and easily applied procedure for making some determination based on prior assumptions by the user, such as seasonality. Exponential smoothing is often used for analysis of time-series data. Exponential smoothing is one of many window functions commonly applied to smooth data in signal processing, acting as low-pass filters to remove high frequency noise. This method is preceded by Poisson's use of recursive exponential window functions in convolutions from the 19th century, as well as Kolmogorov and Zurbenko's use of recursive moving averages from their studies of turbulence in the 1940s. 
+
+The raw data sequence is often represented by  beginning at time $t = 0$,  and the output of the exponential smoothing algorithm is commonly written as ${s_t}$, which may be regarded as a best estimate of what the next value of $x$ will be. When the sequence of observations begins at time $t = 0$, the simplest form of exponential smoothing is given by the formulas.
+
+$$s_0 = x_0$$
+
+$$ s_t =  \alpha x_t + (1 - \alpha) s_{t-1}, t > 0$$
+where $\alpha$  is the smoothing factor, and $0 < \alpha < 1$
+
+This simple form of exponential smoothing is also known as an exponentially weighted moving average (EWMA). Technically it can also be classified as an autoregressive integrated moving average (ARIMA) (0,1,1) model with no constant term.
+
+
+```{r message=FALSE, warning=FALSE,fig.cap="Forecasted value using expontional smoothing for Annual Rainfall"}
+
+options("scipen"=100, "digits"=2)
+# Exponetial Smoothing
+ExpSmooth <- HoltWinters(train.ts[,18], gamma = FALSE)
+ExpSmooth
+
+# Plotting the estimates
+#plot(ExpSmooth)
+
+train_forecast = as.data.frame(ExpSmooth$fitted)
+train_ANN = train[,c("YEAR", "ANN")]
+train_ANN = train_ANN[3:116, ]
+train_ANN = cbind(train_ANN, train_forecast)
+train_ANN$xhat <- NULL
+setnames(train_ANN, "level", "Forecast")
+
+train_ANN$Error = (train_ANN$ANN - train_ANN$Forecast)^2
+train_ANN$AbsError = abs(train_ANN$ANN - train_ANN$Forecast)
+train_ANN$APE = abs(train_ANN$ANN - train_ANN$Forecast)/train_ANN$ANN
+
+
+SampleSize = nrow(train_ANN)
+MSE = sum(train_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(train_ANN$AbsError)/SampleSize
+MAPE = (sum(train_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+train_statistics <- data.frame(cbind(statistics, Value))
+train_statistics$training_set <- train_statistics$V2
+train_statistics$V2 <- NULL
+rownames(train_statistics) <-  NULL
+
+library(forecast)
+prediction_SES <- forecast(ExpSmooth, h=30)
+plot(prediction_SES)
+Forecast = as.data.frame(prediction_SES$mean)
+
+test_ANN = test[,c("YEAR", "ANN")]
+test_ANN = cbind(test_ANN, Forecast)
+test_ANN = data.table(test_ANN)
+setnames(test_ANN, 'x', 'Forecast')
+
+test_ANN$Error = (test_ANN$ANN - test_ANN$Forecast)^2
+test_ANN$AbsError = abs(test_ANN$ANN - test_ANN$Forecast)
+test_ANN$APE = abs(test_ANN$ANN - test_ANN$Forecast)/test_ANN$ANN
+#kable(test_ANN, "latex",longtable=T,booktabs=T,caption="Exponential Smoothing forecast of test data") %>%
+#  kable_styling(latex_options = c("striped", "scale_down"))
+
+
+SampleSize = nrow(test_ANN)
+MSE = sum(test_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(test_ANN$AbsError)/SampleSize
+MAPE = (sum(test_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+
+test_statistics <- data.frame(cbind(statistics, Value))
+test_statistics$testing_set <- test_statistics$V2
+test_statistics$V2 <- NULL
+rownames(test_statistics) <-  NULL
+
+Finalresult_ES = merge(train_statistics, test_statistics, by ="statistics")
+
+kable(Finalresult_ES, "latex",longtable=T,booktabs=T,caption="Accuracy Metrics of Annual Rainfall using Exponential Smoothing") %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
+
+**Interpretation:**
+
+ 1.To make forecasts using  exponential smoothing in R, we can fit a simple exponential smoothing predictive model using the “HoltWinters()” function in R. To use HoltWinters() for simple exponential smoothing, we need to set the parameter gamma=FALSE in the HoltWinters() function (the beta and gamma parameters are used for Holt’s exponential smoothing, or Holt-Winters exponential smoothing
+ 
+ 2.By default, HoltWinters() just makes forecasts for the same time period covered by our original time series. In this case, our original time series included rainfall for All India from 1871-1986, so the forecasts are also for 1871-1986.
+ 
+ 3.The output of HoltWinters() tells us that the estimated value of the alpha parameter is about 0.028 and gamma parametre is about 0.16. This is very close to zero, telling us that the forecasts are based on both recent and less recent observations (although somewhat more weight is placed on recent observations).
+ 
+ 4.Here the forecasts for 1987-2016 are plotted as a blue line, the 80% prediction interval as an sky blue shaded area, and the 95% prediction interval as a grey shaded area.
+ 
+ 5.From graph, The plot shows the original time series in black, and the forecasts as a blue line. The time series of forecasts is much smoother than the time series of the original data here
+ 6. Overall model accuraacy is 88.32% (MAPE = 11.68%) indecating not a very good fit of the model. This model also exhibit some over-fitting as training and test error are little bit different.
+
+#### __***Forecasts using ARIMA Model***__
+
+**ARIMA Model:**
+
+ARIMA stands for Autoregressive Integrated Moving Average models. Univariate (single vector) ARIMA is a forecasting technique that projects the future values of a series based entirely on its own inertia. Its main application is in the area of short term forecasting requiring at least 40 historical data points.  It works best when your data exhibits a stable or consistent pattern over time with a minimum amount of outliers. Sometimes called Box-Jenkins (after the original authors), ARIMA is usually superior to exponential smoothing techniques when the data is reasonably long and the correlation between past observations is stable. If the data is short or highly volatile, then some smoothing method may perform better. If you do not have at least 38 data points, you should consider some other method than ARIMA.
+
+**Basic Concepts:**
+
+The first step in applying ARIMA methodology is to check for stationarity. "Stationarity" implies that the series remains at a fairly constant level over time. If a trend exists, as in most economic or business applications, then your data is NOT stationary. The data should also show a constant variance in its fluctuations over time. This is easily seen with a series that is heavily seasonal and growing at a faster rate. In such a case, the ups and downs in the seasonality will become more dramatic over time. Without these stationarity conditions being met, many of the calculations associated with the process cannot be computed.
+
+**Differencing:**
+
+If a graphical plot of the data indicates nonstationarity, then you should "difference" the series. Differencing is an excellent way of transforming a nonstationary series to a stationary one. This is done by subtracting the observation in the current period from the previous one. If this transformation is done only once to a series, you say that the data has been "first differenced". This process essentially eliminates the trend if your series is growing at a fairly constant rate. If it is growing at an increasing rate, you can apply the same procedure and difference the data again. Your data would then be "second differenced".
+
+**Autocorrelations:**
+
+"Autocorrelations" are numerical values that indicate how a data series is related to itself over time. More precisely, it measures how strongly data values at a specified number of periods apart are correlated to each other over time. The number of periods apart is usually called the "lag". For example, an autocorrelation at lag 1 measures how values 1 period apart are correlated to one another throughout the series. An autocorrelation at lag 2 measures how the data two periods apart are correlated throughout the series. Autocorrelations may range from +1 to -1. A value close to +1 indicates a high positive correlation while a value close to -1 implies a high negative correlation. These measures are most often evaluated through graphical plots called "correlagrams". A correlagram plots the auto- correlation values for a given series at different lags. This is referred to as the "autocorrelation function" and is very important in the ARIMA method.
+
+Let's start building our ARIMA models. For this, let's plot ACF and PACF plot to identify order of ARIMA models.
+
+**ACF and PACF Plot**
+
+After a time series has been stationarized by differencing, the next step in fitting an ARIMA model is to determine whether AR or MA terms are needed to correct any autocorrelation that remains in the differenced series.By looking at the autocorrelation function (ACF) and partial autocorrelation (PACF) plots of the differenced series, we can tentatively identify the numbers of AR and/or MA terms that are needed. ACF plot is merely a bar chart of the coefficients of correlation between a time series and lags of itself. The PACF plot is a plot of the partial correlation coefficients between the series and lags of itself.
+
+In general, the "partial" correlation between two variables is the amount of correlation between them which is not explained by their mutual correlations with a specified set of other variables. For example, if we are regressing a variable $Y$ on other variables $X_1$, $X_2$, and $X_3$, the partial correlation between $Y$ and $X_3$ is the amount of correlation between $Y$ and $X_3$ that is not explained by their common correlations with $X_1$ and $X_2$. This partial correlation can be computed as the square root of the reduction in variance that is achieved by adding $X_3$ to the regression of $Y$ on $X_1$ and $X_2$.
+
+A partial autocorrelation is the amount of correlation between a variable and a lag of itself that is not explained by correlations at all lower-order-lags. The autocorrelation of a time series $Y$ at lag 1 is the coefficient of correlation between $Y_t$ and $Y_{t-1}$, which is presumably also the correlation between $Y{t-1}$ and $Y_{t-2}$. But if $Y_t$ is correlated with $Y_{t-1}$, and $Y_{t-1}$ is equally correlated with $Y_{t-2}$, then we should also expect to find correlation between $Y_t$ and $Y_{t-2}$. In fact, the amount of correlation we should expect at lag 2 is precisely the square of the lag-1 correlation. Thus, the correlation at lag 1 "propagates" to lag 2 and presumably to higher-order lags. The partial autocorrelation at lag 2 is therefore the difference between the actual correlation at lag 2 and the expected correlation due to the propagation of correlation at lag 1.
+
+```{r message=FALSE, warning=FALSE,fig.cap="ACF plot of Annual Rainfall",out.width='75%',fig.align='center'}
+
+ggAcf(train.ts[,18],main="non differenced data",lag=40)
+
+```
+
+
+```{r message=FALSE, warning=FALSE,fig.cap="PACF plot of Annual Rainfall",out.width='75%',fig.align='center'}
+
+ggPacf(train.ts[,18],main="non differenced data",lag=40)
+
+```
+
+** Interpretation:**
+
+From ACF and PACF plot,
+ 1. The partial autocorrelations at all lags can be computed by fitting a succession of autoregressive models with increasing numbers of lags.
+ 2. In particular, the partial autocorrelation at lag k is equal to the estimated AR(k) coefficient in an autoregressive model with k terms--i.e., a multiple regression model in which Y is regressed on LAG(Y,1), LAG(Y,2), etc., up to LAG(Y,k).
+ 3. Thus, by mere inspection of the PACF you can determine how many AR terms you need to use to explain the autocorrelation pattern in a time series: if the partial autocorrelation is significant at lag k and not significant at any higher order lags--i.e., if the PACF "cuts off" at lag k--then this suggests that you should try fitting an autoregressive model of order k.
+
+
+**Short note on AR model:**
+
+**Autoregrssive model:**
+
+The notation $AR(p)$ refers to the autoregressive model of order $p$. The $AR(p)$ model is written as
+
+$$X_t  = c + \sum_i^p[m _X]_{t_-1} +  \epsilon_t$$
+
+where m1,m2,….mp are parameters, c is a constant, and the random variable $\epsilon_t$ is white noise.
+
+Some constraints are necessary on the values of the parameters so that the model remains stationary. For example, processes in the $AR(1)$ model with $|m_1| = 1$ are not stationary.
+
+**Fitting AR Model**
+
+Let's fit AR model with order 3. For this, we are using `arima` function.
+
+```{r message=FALSE, warning=FALSE,fig.cap="Forecasted value using AR model for Annual Rainfall"}
+options("scipen"=100, "digits"=2)
+
+# fitting the model
+ar3 <- arima(train.ts[,18], order=c(3, 0, 0))
+ar3
+
+# calculate train accuracy
+train_forecast = as.data.frame(fitted(ar3))
+train_ANN = train[,c("YEAR", "ANN")]
+#train_ANN = train_ANN[3:116, ]
+train_ANN = cbind(train_ANN, train_forecast)
+setnames(train_ANN, "x", "Forecast")
+
+train_ANN$Error = (train_ANN$ANN - train_ANN$Forecast)^2
+train_ANN$AbsError = abs(train_ANN$ANN - train_ANN$Forecast)
+train_ANN$APE = abs(train_ANN$ANN - train_ANN$Forecast)/train_ANN$ANN
+
+
+SampleSize = nrow(train_ANN)
+MSE = sum(train_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(train_ANN$AbsError)/SampleSize
+MAPE = (sum(train_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+train_statistics <- data.frame(cbind(statistics, Value))
+train_statistics$training_set <- train_statistics$V2
+train_statistics$V2 <- NULL
+rownames(train_statistics) <-  NULL
+
+# forecasting for test data
+ar3_forecast <- forecast(ar3,h = 30)
+
+# plotting the forecasted series
+plot(ar3_forecast)
+
+# calculate test accuracy
+Forecast = as.data.frame(ar3_forecast$mean)
+test_ANN = test[,c("YEAR", "ANN")]
+test_ANN = cbind(test_ANN, Forecast)
+test_ANN = data.table(test_ANN)
+setnames(test_ANN, 'x', 'Forecast')
+
+test_ANN$Error = (test_ANN$ANN - test_ANN$Forecast)^2
+test_ANN$AbsError = abs(test_ANN$ANN - test_ANN$Forecast)
+test_ANN$APE = abs(test_ANN$ANN - test_ANN$Forecast)/test_ANN$ANN
+#kable(test_ANN, "latex",longtable=T,booktabs=T,caption="ARIMA Model of forecasting") %>%
+#  kable_styling(latex_options = c("striped", "scale_down"))
+
+SampleSize = nrow(test_ANN)
+MSE = sum(test_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(test_ANN$AbsError)/SampleSize
+MAPE = (sum(test_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+test_statistics <- data.frame(cbind(statistics, Value))
+test_statistics$testing_set <- test_statistics$V2
+test_statistics$V2 <- NULL
+rownames(test_statistics) <-  NULL
+
+# summarising the model results
+Finalresult_ar3 = merge(train_statistics, test_statistics, by ="statistics")
+
+kable(Finalresult_ar3, "latex",longtable=T,booktabs=T,caption="Accuracy Metrics of Annual Rainfall using AR Model") %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
+
+**Interpretation:**
+
+ 1. Overall model accuraacy is 92.81% (MAPE = 7.19%) indecating good fit of the model. This model also does not exhibit over-fitting as training and test error are almost same.
+
+### ***Forecasts using Neural Network Modals***
+
+Reading some forecasting papers we saw that many technicians use Artificial Neural Networks. We realized that deepening this powerful method with our knowledge would take more time than we had. We decided to choose two known statistics methods, which still gave good results, to be compared later with a simple Neural Networks. This tool has proven to be more difficult than we thought, and the results have not been as good as expected.
+
+Artificial neural networks are forecasting methods that are based on simple mathematical models of the brain. They allow complex nonlinear relationships between the response variable and its predictors.
+
+
+```{r message=FALSE, warning=FALSE,fig.cap="Forecasted value using Neural network for Annual Rainfall"}
+options("scipen"=100, "digits"=2)
+
+# fitting the model
+NN <- nnetar(train.ts[,18])
+NN
+
+# calculate train accuracy
+train_forecast = as.data.frame(NN$fitted)
+train_ANN = train[,c("YEAR", "ANN")]
+#train_ANN = train_ANN[2:116, ]
+train_ANN = cbind(train_ANN, train_forecast)
+setnames(train_ANN, "x", "Forecast")
+
+train_ANN = train_ANN[2:116,]
+train_ANN$Error = (train_ANN$ANN - train_ANN$Forecast)^2
+train_ANN$AbsError = abs(train_ANN$ANN - train_ANN$Forecast)
+train_ANN$APE = abs(train_ANN$ANN - train_ANN$Forecast)/train_ANN$ANN
+
+SampleSize = nrow(train_ANN)
+MSE = sum(train_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(train_ANN$AbsError)/SampleSize
+MAPE = (sum(train_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+train_statistics <- data.frame(cbind(statistics, Value))
+train_statistics$training_set <- train_statistics$V2
+train_statistics$V2 <- NULL
+rownames(train_statistics) <-  NULL
+
+# forecasting for test data
+NN_forecast <- forecast(NN,h = 30)
+
+# plotting the forecasted series
+plot(NN_forecast)
+
+# calculate test accuracy
+Forecast = as.data.frame(NN_forecast$mean)
+test_ANN = test[,c("YEAR", "ANN")]
+test_ANN = cbind(test_ANN, Forecast)
+test_ANN = data.table(test_ANN)
+setnames(test_ANN, 'x', 'Forecast')
+
+test_ANN$Error = (test_ANN$ANN - test_ANN$Forecast)^2
+test_ANN$AbsError = abs(test_ANN$ANN - test_ANN$Forecast)
+test_ANN$APE = abs(test_ANN$ANN - test_ANN$Forecast)/test_ANN$ANN
+#kable(test_ANN, "latex",longtable=T,booktabs=T,caption="Neural Network Modals of forecasting") %>%
+#  kable_styling(latex_options = c("striped", "scale_down"))
+
+SampleSize = nrow(test_ANN)
+MSE = sum(test_ANN$Error)/SampleSize
+RMSE = sqrt(MSE)
+MAE = sum(test_ANN$AbsError)/SampleSize
+MAPE = (sum(test_ANN$APE)/SampleSize)*100
+
+statistics = c("SampleSize", "MSE", "RMSE", "MAE", "MAPE")
+Value = rbind(SampleSize, MSE, RMSE, MAE, MAPE)
+
+test_statistics <- data.frame(cbind(statistics, Value))
+test_statistics$testing_set <- test_statistics$V2
+test_statistics$V2 <- NULL
+rownames(test_statistics) <-  NULL
+
+# summarising the model results
+Finalresult_NN = merge(train_statistics, test_statistics, by ="statistics")
+
+kable(Finalresult_NN, "latex",longtable=T,booktabs=T,caption="Accuracy Metrics of Annual Rainfall using Neural Network Modals") %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
+
+**Interpretation:**
+
+ 1. Overall model accuraacy is 92.80% (MAPE = 7.20%) indecating good fit of the model. This model also does not exhibit over-fitting as training and test error are almost same.

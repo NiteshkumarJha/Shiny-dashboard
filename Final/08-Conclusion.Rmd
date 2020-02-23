@@ -1,0 +1,24 @@
+# CONCLUSION
+
+**Comparison of time series model**
+
+From the chapter 6 and 7,we can conclued the following:
+
+ 1. For the collect data of annual rainfall data, Simple Exponential Smoothing Model is the best model among outperform the other 3 model(Exponential Smoothing Model, ARIMA Model and Neural Network Modals) based on the MAPE statistics.
+ 2. For the collect data of monsoon rainfall data, Simple Exponential Smoothing Model is the best model among outperform the other 3 model(Exponential Smoothing Model, ARIMA Model and Neural Network Modals) based on the MAPE statistics.
+ 
+> There is further scope of improvement can be possible by trying other time series model(Long Short Term Memory networks(LSTM), Time Bely Neural Network(TBLN), etc.) or by introducing independent variables like temperature, pollution, wind speed etc. in ARIMAX OR Regression Models.
+
+**Disriptive statistics using monsoon southwest(JJAS) and annuall rainfall(ANN)**
+
+ 1. Skewness value of southwest monsoon(JJAS) is -0.51 which is lies between -0.5 to -1, then we conclude that the distribution is moderately skewed and also distribution is highly skewed because given  value is less than -1.
+ 2. Skewness value of annual rainfall (ANN) is -0.02, which is lies between -0.5 to 0.5, and then we conclude that the distribution is approximately skewed, also distribution is highly skewedbecause give value is less than -1.
+ 3. Skew.2SE value of southwest monsoon (JJAS)is -1.26, and then we conclude that skewness is insignificantly different from zero.
+ 4.Kurtosis value of southwest monsoon (JJAS) is -0.12, which is less than -1,and then we conclude that distributions is light tails and is called a platykurtic distribution.
+ 5.Kurtosis value of annual rainfall (ANN) is 0.06, which is lies between 0 to 1,and then we conclude that distributions has heavier tails and is called a leptokurtic distribution.
+ 6.Kurtosis value of annual rainfall (ANN) is 0.06, which is lies between 0 to 1,and then we conclude that distributions has heavier tails and is called a leptokurtic distribution.
+ 7.The value of the shapiro-wilk test of annual rainfall (ANN) is 0.99 which is greater than 0.05, then we say that the data is normal.
+ 8. Most of the variables(month/weather period) are not following normal distribution as shown in shapio-wilk test(`normtest.W` and `normtest.p`) except JUN, AUG, SEP,OND and JJASual variables.(Since p-value > 0.05). 
+ 8.The above diagram(Heatmap) shows that, the month june, jully, august, september shows the highest rainfall are shown as well as other month sows the lowest rainfall.
+ 9.Then we have to interpret that those four months i.e southewest monsoon(JJAS) are very important for forecastin rainfall data.
+ 10. Monsoon variable look like following normal distribution which is also confirmed in descriptive statistics section. There is one outlier year(1877) has been observed in which lowest rainfall has been seen.

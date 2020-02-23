@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Niteshkumar Jha  Akshay Jadhav" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="objective.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
+<li class="chapter" data-level="2" data-path="objective.html"><a href="objective.html"><i class="fa fa-check"></i><b>2</b> OBJECTIVE</a></li>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> METHODOLOGY</a></li>
+<li class="chapter" data-level="4" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>4</b> DATA PREPROCESSING</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-preprocessing.html"><a href="data-preprocessing.html#checking-and-loading-libraries"><i class="fa fa-check"></i><b>4.1</b> Checking and loading libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="data-preprocessing.html"><a href="data-preprocessing.html#load-libraries"><i class="fa fa-check"></i><b>4.2</b> Load libraries</a></li>
+<li class="chapter" data-level="4.3" data-path="data-preprocessing.html"><a href="data-preprocessing.html#data-preprocessing-1"><i class="fa fa-check"></i><b>4.3</b> Data Preprocessing</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-preprocessing.html"><a href="data-preprocessing.html#data-import"><i class="fa fa-check"></i><b>4.3.1</b> <em>Data Import</em></a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-preprocessing.html"><a href="data-preprocessing.html#structure-of-data"><i class="fa fa-check"></i><b>4.3.2</b> <em>Structure of data</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>5</b> EXPLORATORY DATA ANALYSIS</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#checking-distribution"><i class="fa fa-check"></i><b>5.2</b> Checking distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#all-series"><i class="fa fa-check"></i><b>5.2.1</b> <em>All series</em></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#annual-rainfall"><i class="fa fa-check"></i><b>5.2.2</b> <strong><em>Annual rainfall</em></strong></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#monsoon-rainfall"><i class="fa fa-check"></i><b>5.2.3</b> <strong><em>Monsoon rainfall</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html"><i class="fa fa-check"></i><b>6</b> FORECASTING ANNUAL RAINFALL</a><ul>
+<li class="chapter" data-level="6.1" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#building-time-series-model"><i class="fa fa-check"></i><b>6.1</b> Building time series model</a></li>
+<li class="chapter" data-level="6.2" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#splitting-into-train-and-test"><i class="fa fa-check"></i><b>6.2.1</b> <strong><em>Splitting into train and test</em></strong></a></li>
+<li class="chapter" data-level="6.2.2" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#converting-data-into-time-series"><i class="fa fa-check"></i><b>6.2.2</b> <strong><em>Converting data into time series</em></strong></a></li>
+<li class="chapter" data-level="6.2.3" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#test-stationary-or-non-stationary"><i class="fa fa-check"></i><b>6.2.3</b> <strong><em>Test Stationary or Non-stationary</em></strong></a></li>
+<li class="chapter" data-level="6.2.4" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#forecasts-using-exponential-smoothing"><i class="fa fa-check"></i><b>6.2.4</b> <strong><em>Forecasts using Exponential Smoothing</em></strong></a></li>
+<li class="chapter" data-level="6.2.5" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#forecasts-using-neural-network-modals"><i class="fa fa-check"></i><b>6.2.5</b> <strong><em>Forecasts using Neural Network Modals</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html"><i class="fa fa-check"></i><b>7</b> FORECASTING MONSOON RAINFALL</a><ul>
+<li class="chapter" data-level="7.1" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#model-building-1"><i class="fa fa-check"></i><b>7.1</b> Model Building</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#splitting-into-train-and-test-1"><i class="fa fa-check"></i><b>7.1.1</b> <strong><em>Splitting into train and test</em></strong></a></li>
+<li class="chapter" data-level="7.1.2" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#converting-data-into-time-series-1"><i class="fa fa-check"></i><b>7.1.2</b> <strong><em>Converting data into time series</em></strong></a></li>
+<li class="chapter" data-level="7.1.3" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#test-stationary-or-non-stationary-1"><i class="fa fa-check"></i><b>7.1.3</b> <strong><em>Test Stationary or Non-stationary</em></strong></a></li>
+<li class="chapter" data-level="7.1.4" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecasts-using-exponential-smoothing-1"><i class="fa fa-check"></i><b>7.1.4</b> <strong><em>Forecasts using Exponential Smoothing</em></strong></a></li>
+<li class="chapter" data-level="7.1.5" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecast-using-arima-model"><i class="fa fa-check"></i><b>7.1.5</b> <em><strong><em>Forecast using ARIMA Model</em></strong></em></a></li>
+<li class="chapter" data-level="7.1.6" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecasts-using-neural-network-modals-1"><i class="fa fa-check"></i><b>7.1.6</b> <strong><em>Forecasts using Neural Network Modals</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> CONCLUSION</a></li>
+<li class="chapter" data-level="9" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>9</b> SESSION INFO</a></li>
+<li class="chapter" data-level="10" data-path="appendex.html"><a href="appendex.html"><i class="fa fa-check"></i><b>10</b> APPENDEX</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>REFERENCES</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</h1>
+<p class="author"><em>Niteshkumar Jha </br> Akshay Jadhav</em></p>
+</div>
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> INTRODUCTION</h1>
+<p>The variability of the annual rainfall in India and specifically Indian summer monsoon (ISM) affects the agriculture food grain production, industry and generation of hydroelectric power, causing severe strain on the national economy.</p>
+<div class="figure">
+<img src="Indian_monsoon.PNG" alt="Indian Monsoon" />
+<p class="caption">Indian Monsoon</p>
+</div>
+<p>Large parts of the country are severely affected due to deficit monsoon rainfall and government of India spends large amount of money on providing relief in affected areas. Importance of ISM to Indian economy and as major global circulation parameter has motivated many scientists to study the variability of Indian monsoon, in the past. In this report,we are understanding histrorical trend for total rainfall and mansoon rainfall based on the data from 1871-2016. Futher, we are also exploring and comparing various forecasting model using machine learing techniques.</p>
+<p>The statistical characteristics of the series i.e. Mean, Standard Deviation and variance has been calculated for below different series:</p>
+<ul>
+<li>Monthly Rainfall(All 12 months)</li>
+<li>Rainfall by season(4 seasons viz., Winter (January +February: J+F), Pre-monsoon (March+April+May: MAM), Southwest Monsoon (June to September: JJAS) and Post Monsoon (October +November+December: OND))</li>
+<li>Annual Rainfall</li>
+</ul>
+<p>In addition to descriptive statistics, we have also plotted long term trend for above series to understand historical behaviour.</p>
+<p><strong>Definition:</strong></p>
+<p>The word monsoon (derived from the Arabic “mausam”, meaning “season”), although generally defined as a system of winds characterized by a seasonal reversal of direction, lacks a consistent, detailed definition. Some examples are:</p>
+<ul>
+<li>The American Meteorological Society calls it a name for seasonal winds, first applied to the winds blowing over the Arabian Sea from the northeast for six months and from the southwest for six months. The term has since been extended to similar winds in other parts of the world.</li>
+<li>The Intergovernmental Panel on Climate Change (IPCC) describes a monsoon as a tropical and subtropical seasonal reversal in both surface winds and associated precipitation, caused by differential heating between a continental-scale land mass and the adjacent ocean.</li>
+<li>The Indian Meteorological Department defines it as the seasonal reversal of the direction of winds along the shores of the Indian Ocean, especially in the Arabian Sea, which blow from the southwest for half of the year and from the northeast for the other half.</li>
+<li>Colin Stokes Ramage, in Monsoon Meteorology, defines the monsoon as a seasonal reversing wind accompanied by corresponding changes in precipitation.</li>
+</ul>
+<p><strong>Background:</strong></p>
+<p>Observed initially by sailors in the Arabian Sea traveling between Africa, India, and Southeast Asia, the monsoon can be categorized into two branches based on their spread over the subcontinent:</p>
+<ul>
+<li>Arabian Sea branch</li>
+<li>Bay of Bengal branch</li>
+</ul>
+<p>Alternatively, it can be categorized into two segments based on the direction of rain-bearing winds:</p>
+<ul>
+<li>Southwest (SW) monsoon</li>
+<li>Northeast (NE) monsoon</li>
+</ul>
+<p>Based on the time of year that these winds bring rain to India, the monsoon can also be categorized into two periods:</p>
+<ul>
+<li>Summer monsoon (May to September)</li>
+<li>Winter monsoon (October to November)</li>
+</ul>
+<p>The complexity of the monsoon of South Asia is not completely understood, making it difficult to accurately predict the quantity, timing, and geographic distribution of the accompanying precipitation. These are the most monitored components of the monsoon, and they determine the water availability in India for any given year.</p>
+<p><strong>Process of monsoon creation:</strong></p>
+<p>Also known as the thermal theory or the differential heating of sea and land theory, the traditional theory portrays the monsoon as a large-scale sea breeze. It states that during the hot subtropical summers, the massive landmass of the Indian Peninsula heats up at a different rate than the surrounding seas, resulting in a pressure gradient from south to north. This causes the flow of moisture-laden winds from sea to land. On reaching land, these winds rise because of the geographical relief, cooling adiabatically and leading to orographic rains. This is the southwest monsoon. The reverse happens during the winter, when the land is colder than the sea, establishing a pressure gradient from land to sea. This causes the winds to blow over the Indian subcontinent toward the Indian Ocean in a northeasterly direction, causing the northeast monsoon. Because the southwest monsoon flows from sea to land, it carries more moisture, and therefore causes more rain, than the northeast monsoon. Only part of the northeast monsoon passing over the Bay of Bengal picks up moisture, causing rain in Andhra Pradesh and Tamil Nadu during the winter months.</p>
+<p>However, many meteorologists argue that the monsoon is not a local phenomenon as explained by the traditional theory, but a general weather phenomenon along the entire tropical zone of Earth. This criticism does not deny the role of differential heating of sea and land in generating monsoon winds, but casts it as one of several factors rather than the only one.</p>
+<p><strong>Significance:</strong></p>
+<p>The monsoon is the primary delivery mechanism for fresh water in the Indian subcontinent. As such, it affects the environment (and associated flora, fauna, and ecosystems), agriculture, society, hydro-power production, and geography of the subcontinent (like the availability of fresh water in water bodies and the underground water table), with all of these factors cumulatively contributing to the health of the economy of affected countries.</p>
+<p><strong>Geographical (wettest spots on Earth):</strong></p>
+<p>Mawsynram and Cherrapunji, both in the Indian state of Meghalaya, alternate as the wettest places on Earth given the quantity of their rainfall, though there are other cities with similar claims. They receive more than 11,000 millimeters of rain each from the monsoon.</p>
+<p><strong>Agricultural:</strong></p>
+<p>In India, which has historically had a primarily agrarian economy, the services sector recently overtook the farm sector in terms of GDP contribution. However, the agriculture sector still contributes 17-20% of GDP[48] and is the largest employer in the country, with about 60% of Indians dependent on it for employment and livelihood. About 49% of India’s land is agricultural; that number rises to 55% if associated wetlands, dryland farming areas, etc., are included. Because more than half of these farmlands are rain-fed, the monsoon is critical to food sufficiency and quality of life.</p>
+<p>Despite progress in alternative forms of irrigation, agricultural dependence on the monsoon remains far from insignificant. Therefore, the agricultural calendar of India is governed by the monsoon. Any fluctuations in the time distribution, spatial distribution, or quantity of the monsoon rains may lead to floods or droughts, causing the agricultural sector to suffer. This has a cascading effect on the secondary economic sectors, the overall economy, food inflation, and therefore the general population’s quality and cost of living.</p>
+<p><strong>Economic:</strong></p>
+<p>The economic significance of the monsoon is aptly described by Pranab Mukherjee’s remark that the monsoon is the “real finance minister of India”. A good monsoon results in better agricultural yields, which brings down prices of essential food commodities and reduces imports, thus reducing food inflation overall. Better rains also result in increased hydroelectric production. All of these factors have positive ripple effects throughout the economy of India.</p>
+<p>The down side however is that when monsoon rains are weak, crop production is low leading to higher food prices with limited supply. As a result, the Indian government is actively working with farmers and the nation’s meteorological department to produce more drought resistant crops.</p>
+<p><strong>Social:</strong></p>
+<p>D. Subbarao, former governor of the Reserve Bank of India, emphasized during a quarterly review of India’s monetary policy that the lives of Indians depend on the performance of the monsoon. His own career prospects, his emotional well-being, and the performance of his monetary policy are all “a hostage” to the monsoon, he said, as is the case for most Indians. Additionally, farmers rendered jobless by failed monsoon rains tend to migrate to cities. This crowds city slums and aggravates the infrastructure and sustainability of city life.</p>
+<p><strong>Travel:</strong></p>
+<p>In the past, Indians usually refrained from traveling during monsoons for practical as well as religious reasons. But with the advent of globalization, such travel is gaining popularity. Places like Kerala and the Western Ghats get a large number of tourists, both local and foreigners, during the monsoon season. Kerala is one of the top destinations for tourists interested in Ayurvedic treatments and massage therapy. One major drawback of traveling during the monsoon is that most wildlife sanctuaries are closed. Also, some mountainous areas, especially in Himalayan regions, get cut off when roads are damaged by landslides and floods during heavy rains.</p>
+<p><strong>Environmental:</strong></p>
+<p>The monsoon is the primary bearer of fresh water to the area. The peninsular/Deccan rivers of India are mostly rain-fed and non-perennial in nature, depending primarily on the monsoon for water supply. Most of the coastal rivers of Western India are also rain-fed and monsoon-dependent. As such, the flora, fauna, and entire ecosystems of these areas rely heavily on the monsoon.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="objective.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Final.pdf", "Final.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

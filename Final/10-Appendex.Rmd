@@ -1,0 +1,219 @@
+# APPENDEX
+
+**data.table**
+
+Data manipulation operations such as subset, group, update, join etc., are all inherently related. Keeping these related operations together allows for:
+ 1. concise and consistent syntax irrespective of the set of operations you would like to perform to achieve your end goal.
+ 2. performing analysis fluidly without the cognitive burden of having to map each operation to a particular function from a potentially huge set of functions available before performing the analysis.
+ 3. Automatically optimizing operations internally, and very effectively, by knowing precisely the data required for each operation, leading to very fast and memory efficient code.
+Briefly, if you are interested in reducing programming and compute time tremendously, then this package is for you. The philosophy that data. Table adheres to makes this possible. Our goal is to illustrate it through this series of vignettes.
+
+**dplyr**
+
+Describe what the dplyr package in R is used for. Apply common dplyr functions to manipulate data in R. Employ the 'pipe' operator to link together a sequence of functions. Employ the 'mutate' function to apply other chosen functions to existing columns and create new columns of data.
+
+**plyr**
+
+plyr is a set of tools for a common set of problems: you need to split up a big data structure into homogeneous pieces, apply a function to each piece and then combine all the results back together. For example, you might want to:
+ •	fit the same model each patient subsets of a data frame
+ •	quickly calculate summary statistics for each group
+ •	perform group-wise transformations like scaling or standardizing
+
+It's already possible to do this with base R functions (like split and the apply family of functions), but plyr makes it all a bit easier with:
+ •	totally consistent names, arguments and outputs
+ •	convenient parallelization through the for each package
+ •	input from and output to data. frames, matrices and lists
+ •	progress bars to keep track of long running operations
+ •	built-in error recovery, and informative error messages
+ •	labels that are maintained across all transformations
+
+Considerable effort has been put into making plyr fast and memory efficient, and in many cases plyr is as fast as, or faster than, the built-in equivalents.
+A detailed introduction to plyr has been published in JSS: "The Split-Apply-Combine Strategy for Data Analysis"
+
+**Sqldf**
+
+sqldf is an R package for running SQL statements on R data frames, optimized for convenience. The user simply specifies an SQL statement in R using data frame names in place of table names and a database with appropriate table layouts/schema is automatically created, the data frames are automatically loaded into the database, the specified SQL statement is performed, the result is read back into R and the database is deleted all automatically behind the scenes making the database's existence transparent to the user who only specifies the SQL statement. Surprisingly this can at times be even faster than the corresponding pure R calculation (although the purpose of the project is convenience and not speed). This link suggests that for aggregations over highly granular columns that sqldf is faster than another alternative tried. sqldf is free software published under the GNU General Public License that can be downloaded from CRAN.
+
+Printing nested tables in R – bridging between the {reshape} and {tables} packages
+This post shows how to print a prettier nested pivot table, created using the {reshape} package (similar to what you would get with Microsoft Excel), so you could print it either in the R terminal or as a LaTeX table. This task is done by bridging between the cast_df object produced by the {reshape} package, […]
+
+**pastecs v1.3.21**
+
+Regularization, decomposition and analysis of space-time series. The pastecs R package is a PNEC-Art4 and IFREMER (Benoit Belief <Benoit.Beliaeff@ifremer.fr>) initiative to bring PASSTEC 2000 functionalities to R.
+
+**Name	Description**
+
+AutoD2:- AutoD2, CrossD2 or CenterD2 analysis of a multiple time-series
+
+deccensus:-Time decomposition using the CENSUS II method
+
+disjoin:-Complete disjoined coded data (binary coding)
+
+marbio:-Several zooplankton taxa measured across a transect
+
+decloess:-Time series decomposition by the LOESS method
+
+decmedian:-Time series decomposition using a running median
+
+marphy:-Physico-chemical records at the same stations as for marbio
+
+reglin:-Regulation of a series using a linear interpolation
+
+extract:-Extract a subset of the original dataset
+
+regconst:-Regulate a series using the constant value method
+
+first:-Get the first element of a vector
+
+daystoyears:-Convert time units from "days" to "years" or back
+
+stat.desc:-Descriptive statistics on a data frame or time series
+
+buysbal:-Buys-Ballot table
+
+regspline:-Regulation of a time series using splines
+
+stat.pen:-Pennington statistics on a data frame or time series
+
+vario:-Compute and plot a semi-variorum
+
+match.tol:-Determine matching observation with a tolerance in time-scale
+
+regul:-Regulation of one or several time series using various methods
+
+pennington:-Calculate Pennington statistics
+
+stat.slide:-Sliding statistics
+
+trend.test:-Test if an increasing or decreasing trend exists in a time series
+
+tseries:-Convert a 'regul' or a 'tsd' object into a time series
+
+tsd:-Decomposition of one or several regular time series using various methods
+
+decdiff:-Time series decomposition using differences (trend elimination)
+
+decevf:-Time series decomposition using eigenvector filtering (EVF)
+
+gleissberg.table:-Table of probabilities according to the Gleissberg distribution
+
+is.tseries:-Is this object a time series?
+
+pgleissberg:-Gleissberg distribution probability
+
+regarea:-Regulate a series using the area method
+
+regul.adj:-Adjust regulation parameters
+
+regul.screen:-Test various regulation parameters
+
+abund:-Sort variables by abundance
+
+bnr:-A data frame of 163 benthic species measured across a transect
+
+disto:-Compute and plot a distogram
+
+escouf:-Choose variables using the Escoufier's equivalent vectors method
+
+last:-Get the last element of a vector
+
+local.trend:-Calculate local trends using cumsum
+
+releve:-A data frame of six phytoplankton taxa followed in time at one station
+
+specs:-Collect parameters ("specifications") from one object to use them in another analysis
+
+turnogram:-Calculate and plot a turnogram for a regular time series
+
+turnpoints:-Analyze turning points (peaks or pits)
+
+GetUnitText:-Format a nice time units for labels in graphs
+
+decaverage:-Time series decomposition using a moving average
+
+decreg:-Time series decomposition using a regression model
+
+**psych**
+
+Procedures for Psychological, Psychometric, and Personality Research
+A general purpose toolbox for personality, psychometric theory and experimental psychology. Functions are primarily for multivariate analysis and scale construction using factor analysis, principal component analysis, cluster analysis and reliability analysis, although others provide basic descriptive statistics. Item Response Theory is done using factor analysis of tetra choric and poly choric correlations. Functions for analyzing data at multiple levels include within and between group statistics, including correlations and factor analysis. Functions for simulating and testing particular item and test structures are included. Several functions serve as a useful front end for structural equation modeling. Graphical displays of path diagrams, factor analysis and structural equation models are created using basic graphics. Some of the functions are written to support a book on psychometric theory as well as publications in personality research
+
+**tidy quant** 
+
+Bringing financial analysis to the 'tidyverse'. The 'tidyquant' package provides a convenient wrapper to various 'xts', 'zoo', 'quantmod', 'TTR' and 'PerformanceAnalytics' package functions and returns the objects in the tidy 'tibble' format. The main advantage is being able to use quantitative functions with the 'tidyverse' functions including 'purrr', 'dplyr', 'tidyr', 'ggplot2', 'lubridate', etc. See the 'tidyquant' website for more information, documentation and examples.
+nortest: Tests for Normality
+Five omnibus tests for testing the composite hypothesis of normality.
+
+**tseries** 
+
+Time series analysis and computational finance.
+
+**ggthemes** Extra Themes, Scales and Geoms for 'ggplot2'
+
+Some extra themes, geoms, and scales for 'ggplot2'. Provides 'ggplot2' themes and scales that replicate the look of plots by Edward Tufte, Stephen Few, 'Fivethirtyeight', 'The Economist', 'Stata', 'Excel', and 'The Wall Street Journal', among others. Provides 'geoms' for Tufte's box plot and range frame.
+**ggplot2**
+
+Create Elegant Data Visualisations Using the Grammar of Graphics
+A system for 'declaratively' creating graphics, based on "The Grammar of Graphics". You provide the data, tell 'ggplot2' how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+
+**scales** 
+
+Scale Functions for Visualization
+
+Graphical scales map data to aesthetics, and provide methods for automatically determining breaks and labels for axes and legends.
+
+**Forecast**
+
+Forecasting Functions for Time Series and Linear Models
+
+Methods and tools for displaying and analysing univariate time series forecasts including exponential smoothing via state space models and automatic ARIMA modelling.
+
+**Metrics**
+
+Evaluation Metrics for Machine Learning
+
+An implementation of evaluation metrics in R that are commonly used in supervised machine learning. It implements metrics for regression, time series, binary classification, classification, and information retrieval problems. It has zero dependencies and a consistent, simple interface for all functions.
+
+**kableExtra**
+
+Construct Complex Table with 'kable' and Pipe Syntax
+
+Build complex HTML or 'LaTeX' tables using 'kable()' from 'knitr' and the piping syntax from 'magrittr'. Function 'kable()' is a light weight table generator coming from 'knitr'. This package simplifies the way to manipulate the HTML or 'LaTeX' codes generated by 'kable()' and allows users to construct complex tables and customize styles using a readable syntax.
+
+**pander**
+
+An R 'Pandoc' Writer
+
+Contains some functions catching all messages, 'stdout' and other useful information while evaluating R code and other helpers to return user specified text elements (like: header, paragraph, table, image, lists etc.) in 'pandoc' markdown or several type of R objects similarly automatically transformed to markdown format. Also capable of exporting/converting (the resulting) complex 'pandoc' documents to e.g. HTML, 'PDF', 'docx' or 'odt'. This latter reporting feature is supported in brew syntax or with a custom reference class with a smarty caching 'backend'.
+
+**tidyverse**
+
+Easily Install and Load the 'Tidy verse'
+
+The 'tidyverse' is a set of packages that work in harmony because they share common data representations and 'API' design. This package is designed to make it easy to install and load multiple 'tidyverse' packages in a single step. Learn more about the 'tidyverse' at.
+
+**lubridate**
+
+Make Dealing with Dates a Little Easier
+
+Functions to work with date-times and time-spans: fast and user friendly parsing of date-time data, extraction and updating of components of a date-time (years, months, days, hours, minutes, and seconds), algebraic manipulation on date-time and time-span objects. The 'lubridate' package has a consistent and memorable syntax that makes working with dates easy and fun. Parts of the 'CCTZ' source code, released under the Apache 2.0 License, are included in this package. See.
+
+**timeSeries**
+
+Rmetrics - Financial Time Series Objects
+
+Provides a class and various tools for financial time series. This includes basic functions such as scaling and sorting, sub setting, mathematical operations and statistical functions.
+
+**magrittr**
+
+A Forward-Pipe Operator for R
+
+Provides a mechanism for chaining commands with a new forward-pipe operator, %>%. This operator will forward a value, or the result of an expression, into the next function call/expression. There is flexible support for the type of right-hand side expressions. For more information, see package vignette. To quote Rene Magritte, "Cenci nest pas un pipe."
+
+**recipes**
+
+Preprocessing Tools to Create Design Matrices
+
+An extensible framework to create and preprocess design matrices. Recipes consist of one or more data manipulation and analysis "steps". Statistical parameters for the steps can be estimated from an initial data set and then applied to other data sets. The resulting design matrices can then be used as inputs into statistical or machine learning models.
+
+

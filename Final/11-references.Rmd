@@ -1,0 +1,16 @@
+# REFERENCES {-}
+
+ 1.  People.duke.edu. (2019). Identifying the orders of AR and MA terms in an ARIMA model. [online] Available at: https://people.duke.edu/~rnau/411arim3.htm [Accessed 6 Apr. 2019].
+ 
+ 2. En.wikipedia.org. (2019). Monsoon of South Asia. [online] Available at: https://en.wikipedia.org/wiki/Monsoon_of_South_Asia [Accessed 6 Apr. 2019].
+ 
+ 3. George E. P. Box,Gwilym M. Jenkins,Gregory C. Reinsel,Greta M. Ljung (2015). Time Series Analysis: Forecasting and Control (Wiley Series in Probability and Statistics) 5th Edition.
+ 
+ 4. Tsai, E. (2019). RPubs - Time Series Analysis in R. [online] Rpubs.com. Available at: http://www.rpubs.com/edwardtsai/timeseriesanalysis [Accessed 6 Apr. 2019].
+ 
+ 5. T.M.J.A. Cooray. Applied Time Series : Analysis and Forecasting
+ 
+ 6. B.L.Agrawal (2017) Programed Statistics 3th Edition.
+
+
+

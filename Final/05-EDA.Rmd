@@ -1,0 +1,229 @@
+# EXPLORATORY DATA ANALYSIS
+
+In this step, we are going to perform below tools of Exploratory data analysis:
+
+ + Descriptive statistics
+   + Measure of central tendency and dispersion
+   + Skewness and kurtasis
+   + Normality test
+ + Histogram
+ + Box-plot
+
+## Descriptive statistics
+
+In this step, we are checking some descriptive statistics of our **rainfall** dataset. We are calculating below statistics: 
+
+**Measure of central tendency and dispersion:**
+
+A measure of central tendency is a number used to represent the center or middle of a set of data values.In other words, The measures of central tendency describe a distribution in terms of its most "frequent", "typical" or "average" data value. But there are different ways of representing or expressing the idea of "typicality". 
+
+**Arithmetic Mean**
+
+For a given set of observations, Arithmetic Mean is defined as the sum of all the observations divided by the number of observations. Thus, if a variable x assumes n values $x_1$, $x_2$, $x_3$,.......... $x_n$, then **AM** of x, to be denoted by $\bar{x}$, given by,
+
+$$\bar{x} = \frac{x_1 + x_2 + x_3 + ....+ x_n}{n}
+    = \frac{1}{n} \sum_{i=1}^n X_i$$
+
+**The Median**
+
+The median can be defined as that point in a distribution above which and below which lie 50% of all the cases or observations in the distribution.
+
+**Measure of dispersion** 
+
+Measure of dispersion is defined as lack of uniformity in the sizes or quantities of the items of a group or series.
+
+**Range**
+
+Range is the difference between the smallest value and the largest value of a series.
+
+It is calculated by below formula:
+
+$$Range = Maximum - Minimum$$
+
+**Standard deviation and Variance**
+
+Standard deviation is calculated as the square root of average of squared deviations taken from actual mean. It is also called root mean square deviation. The square of standard deviation i.e., $\sigma^2$ is called 'variance'.
+Calculation of standard deviation in case of raw data
+
+Formula for Standard Deviations is as below:
+
+$$ \sigma = \sqrt{\frac{1}{N}\sum_{i=1}^{n}(x_i - \mu)^2 }$$
+
+**Standard error**
+
+Standard error is  define as standard deviation of sample statistics.Formula for Standard error is as below: 
+
+$$ SE = \frac{s}{\sqrt{n}}$$
+
+For calculating all above statistics, we are using **stat.desc** from `pastecs`.
+
+```{r message=FALSE, warning=FALSE}
+options("scipen"=100, "digits"=2)
+# using stat.desc
+kable(stat.desc(rainfall[,2:18],norm = TRUE), "latex",longtable=T,booktabs=T,
+      caption="Descriptive statistics") %>%
+  kable_styling(latex_options = c("striped", "scale_down"),font_size = 5)
+
+```
+
+**Conclusion:**
+
+From the descriptive statistics results in the table 5.1 we can conclude the following:
+
+ 1. There is no missing value or null value in the dataset as indicated in `nbr.na` and `nbr.null` respectively.
+ 2. On an average JULY followed by AUGUST received highest rainfall whereas JANUARY received lowest rainfall.
+ 3. On an average, JJASual rainfall in the INDIA is approximate 1085.91mm in which INDIA received lowest rainfall of 810.90mm in the year 1899 whereas maximum rainfall of 1340mm recorded in the year 1917.
+ 4. Skewness value of southwest monsoon(JJAS) is -0.51 which is lies between -0.5 to -1, then we conclude that the distribution is moderately skewed and also distribution is highly skewed because given  value is less than -1.
+ 5. Skewness value of annual rainfall (ANN) is -0.02, which is lies between -0.5 to 0.5, and then we conclude that the distribution is approximately skewed, also distribution is highly skewedbecause give value is less than -1.
+ 6. Skew.2SE value of southwest monsoon (JJAS)is -1.26, and then we conclude that skewness is insignificantly different from zero.
+ 7.Kurtosis value of southwest monsoon (JJAS) is -0.12, which is less than -1,and then we conclude that distributions is light tails and is called a platykurtic distribution.
+ 8.Kurtosis value of annual rainfall (ANN) is 0.06, which is lies between 0 to 1,and then we conclude that distributions has heavier tails and is called a leptokurtic distribution.
+ 9.Kurtosis value of annual rainfall (ANN) is 0.06, which is lies between 0 to 1,and then we conclude that distributions has heavier tails and is called a leptokurtic distribution.
+ 10.The value of the shapiro-wilk test of annual rainfall (ANN) is 0.99 which is greater than 0.05, then we say that the data is normal.
+ 11. Most of the variables(month/weather period) are not following normal distribution as shown in shapio-wilk test(`normtest.W` and `normtest.p`) except JUN, AUG, SEP,OND and JJASual variables.(Since p-value > 0.05). 
+
+## Checking distribution
+
+In this step, we are checking distribution of each variable by looking at histogram. We are also checking presence of outliers by looking at Box-plot.
+
+**Histogram:**
+
+A histogram is a bar diagram which is suitable for frequency distributions with continuous classes. The width of all bars is equal to class interval and heights of the bars are in proportion to the frequencies of the respective classes.
+
+**Box-plot:**
+
+In descriptive statistics, a box plot or box plot is a method for graphically depicting groups of numerical data through their quartiles. Box plots may also have lines extending vertically from the boxes (whiskers) indicating variability outside the upper and lower quartiles, hence the terms box-and-whisker plot and box-and-whisker diagram. Outliers may be plotted as individual points. Box plots are non-parametric: they display variation in samples of a statistical population without making any assumptions of the underlying statistical distribution (though Tukey's box plot assumes symmetry for the whiskers and normality for their length). The spacing’s between the different parts of the box indicate the degree of dispersion (spread) and skewness in the data, and show outliers. In addition to the points themselves, they allow one to visually estimate various L-estimators, notably the interquartile range, midhinge, range, mid-range, and trim an. Box plots can be drawn either horizontally or vertically. Box plots received their name from the box in the middle.
+
+We are checking distribution of all series by histogram and box-plot. Additionally we are also checking distribution of annual and monsoon seprately.
+
+### *All series*
+
+In this step, we are plotting histogram and box-plot of all series.
+
+**Histogram**
+
+```{r message=FALSE, warning=FALSE,fig.cap="Histogram of all series"}
+
+multi.hist(rainfall[,2:18])
+
+```
+
+**Interpretation:**
+
+1. The above diagram shows the histogram of the all the months and we have to check data follos normal distribution or not.
+
+**Box-plot**
+
+```{r message=FALSE, warning=FALSE,fig.cap="Box plot of all series"}
+
+mdata <- melt(rainfall, id="YEAR")
+
+theme_set(theme_classic())
+
+# Plot
+g <- ggplot(mdata, aes(variable, value))
+g + geom_boxplot(varwidth=T, fill="plum") + 
+    labs(title="Box plot", 
+         subtitle="Rainfall by each period",
+         caption="Source: Rainfall data",
+         x="Period",
+         y="Rainfall")
+```
+
+**Interpretation:**
+
+ 1. Annual variable look like following normal distribution which is also confirmed in descriptive statistics section. No outlier has been observed as well.
+ 2.Southewest monsoon(JJAS) which value lies between 1st quartile and 2nd quartile and there is outlier present in the data.
+ 
+
+
+### ***Annual rainfall***
+
+In this step, we are checking distribution of Annual variable by looking at histogram. We are also checking presence of outliers by looking at Box-plot.
+
+**Histogram:**
+
+```{r fig.cap="Histogram of Annual Rainfall", message=FALSE, warning=FALSE, out.width='50%',fig.align='center'}
+
+# Normal distribution line in histogram
+hist(rainfall$ANN, freq=FALSE, col="skyblue", xlab="Annual Rainfall", main= "Histogram of Annual Rainfall")
+curve(dnorm(x, mean=mean(rainfall$ANN), sd=sd(rainfall$ANN)), add=TRUE, col="red") 
+
+```
+
+**Interpretation:**
+
+1.The plot shows that the distribution of forecast errors is roughly centred on 1075, and is more or less normally distributed, although it seems to be slightly skewed to the right compared to a normal curve. However, the right skew is relatively small, and so it is plausible that the forecast errors are normally distributed with mean zero.
+
+**Box-plot:**
+
+```{r message=FALSE, warning=FALSE,fig.cap="Boxplot of Annual Rainfall",out.width='50%',fig.align='center'}
+
+boxplot(rainfall$ANN,col = "pink",ylab="Annual Rainfall",
+        main= "Box-plot of Annual Rainfall")
+```
+
+**Interpretation:**
+
+ 1.Annual variable look like following normal distribution which is also confirmed in descriptive statistics section. No outlier has been observed as well.
+
+### ***Monsoon rainfall***
+
+In this step, we are checking distribution of Monsoon rainfall variable by looking at histogram. We are also checking presence of outliers by looking at Box-plot.
+
+**Histogram:**
+
+```{r message=FALSE, warning=FALSE,fig.cap="Histogram of Monsoon Rainfall",out.width='50%',fig.align='center'}
+
+# Normal distribution line in histogram
+hist(rainfall$JJAS, freq=FALSE, col="skyblue", xlab="Monsoon Rainfall", main= "Histogram of Monsoon Rainfall")
+curve(dnorm(x, mean=mean(rainfall$JJAS), sd=sd(rainfall$JJAS)), add=TRUE, col="red") 
+
+```
+
+**Interpretation:**
+
+1.The plot shows that the distribution of forecast errors is roughly centred on 850, and is more or less normally distributed, although it seems to be slightly skewed to the right compared to a normal curve. However, the right skew is relatively small, and so it is plausible that the forecast errors are normally distributed with mean zero.
+
+
+**Box-plot:**
+
+```{r message=FALSE, warning=FALSE,fig.cap="Boxplot of Monsoon Rainfall",out.width='50%',fig.align='center'}
+
+boxplot(rainfall$JJAS,col = "pink",ylab="Monsoon Rainfall",
+        main= "Box-plot of Monsoon Rainfall")
+```
+
+**Interpretation:**
+
+ 1. Monsoon variable look like following normal distribution which is also confirmed in descriptive statistics section. There is one outlier year(1877) has been observed in which lowest rainfall has been seen .
+ 
+ 
+ **Heatmap for Mansoon Rainfall**
+
+Let's look at heatmap of monsoon rainfall. This heatmap has been created in **Tableau**.
+
+```{r,fig.cap="Heatmap of Monsoon Rainfall Part 1"}
+knitr::include_graphics("Rainfall_Heatmap_1.pdf")
+
+```
+
+
+```{r,fig.cap="Heatmap of Monsoon Rainfall Part 2"}
+knitr::include_graphics("Rainfall_Heatmap_2.pdf")
+
+```
+
+
+```{r,fig.cap="Heatmap of Monsoon Rainfall Part 3"}
+knitr::include_graphics("Rainfall_Heatmap_3.pdf")
+
+```
+
+
+**Interpretation::**
+
+ 1.The above diagram(Heatmap) shows that, the month june, jully, august, september shows the highest rainfall are shown as well as other month sows the lowest rainfall.
+ 
+ 2.Then we have to interpret that those four months i.e southewest monsoon(JJAS) are very important for forecastin rainfall data.
+ 

@@ -1,0 +1,81 @@
+# INTRODUCTION {#intro}
+
+The variability of the annual rainfall in India and specifically Indian summer monsoon (ISM) affects the agriculture food grain production, industry and generation of hydroelectric power, causing severe strain on the national economy. 
+
+![Indian Monsoon](Indian_monsoon.PNG)
+
+Large parts of the country are severely affected due to deficit monsoon rainfall and government of India spends large amount of money on providing relief in affected areas. Importance of ISM to Indian economy and as major global circulation parameter has motivated many scientists to study the variability of Indian monsoon, in the past. In this report,we are understanding histrorical trend for total rainfall and mansoon rainfall based on the data from 1871-2016. Futher, we are also exploring and comparing various forecasting model using machine learing techniques.
+
+The statistical characteristics of the series i.e. Mean, Standard Deviation and variance has been calculated for below different series:
+
+ + Monthly Rainfall(All 12 months)
+ + Rainfall by season(4 seasons viz., Winter (January +February: J+F), Pre-monsoon (March+April+May: MAM), Southwest Monsoon (June to September: JJAS) and Post Monsoon (October +November+December: OND))
+ + Annual Rainfall
+ 
+In addition to descriptive statistics, we have also plotted long term trend for above series to understand historical behaviour.  
+
+**Definition:**
+
+The word monsoon (derived from the Arabic "mausam", meaning "season"), although generally defined as a system of winds characterized by a seasonal reversal of direction, lacks a consistent, detailed definition. Some examples are:
+
+ + The American Meteorological Society calls it a name for seasonal winds, first applied to the winds blowing over the Arabian Sea from the northeast for six months and from the southwest for six months. The term has since been extended to similar winds in other parts of the world.
+ + The Intergovernmental Panel on Climate Change (IPCC) describes a monsoon as a tropical and subtropical seasonal reversal in both surface winds and associated precipitation, caused by differential heating between a continental-scale land mass and the adjacent ocean.
+ + The Indian Meteorological Department defines it as the seasonal reversal of the direction of winds along the shores of the Indian Ocean, especially in the Arabian Sea, which blow from the southwest for half of the year and from the northeast for the other half.
+ + Colin Stokes Ramage, in Monsoon Meteorology, defines the monsoon as a seasonal reversing wind accompanied by corresponding changes in precipitation. 
+
+**Background:**
+
+Observed initially by sailors in the Arabian Sea traveling between Africa, India, and Southeast Asia, the monsoon can be categorized into two branches based on their spread over the subcontinent:
+
+ + Arabian Sea branch
+ + Bay of Bengal branch
+
+Alternatively, it can be categorized into two segments based on the direction of rain-bearing winds:
+
+ + Southwest (SW) monsoon
+ + Northeast (NE) monsoon
+
+Based on the time of year that these winds bring rain to India, the monsoon can also be categorized into two periods:
+
+ + Summer monsoon (May to September)
+ + Winter monsoon (October to November)
+
+The complexity of the monsoon of South Asia is not completely understood, making it difficult to accurately predict the quantity, timing, and geographic distribution of the accompanying precipitation. These are the most monitored components of the monsoon, and they determine the water availability in India for any given year.
+
+**Process of monsoon creation:**
+
+Also known as the thermal theory or the differential heating of sea and land theory, the traditional theory portrays the monsoon as a large-scale sea breeze. It states that during the hot subtropical summers, the massive landmass of the Indian Peninsula heats up at a different rate than the surrounding seas, resulting in a pressure gradient from south to north. This causes the flow of moisture-laden winds from sea to land. On reaching land, these winds rise because of the geographical relief, cooling adiabatically and leading to orographic rains. This is the southwest monsoon. The reverse happens during the winter, when the land is colder than the sea, establishing a pressure gradient from land to sea. This causes the winds to blow over the Indian subcontinent toward the Indian Ocean in a northeasterly direction, causing the northeast monsoon. Because the southwest monsoon flows from sea to land, it carries more moisture, and therefore causes more rain, than the northeast monsoon. Only part of the northeast monsoon passing over the Bay of Bengal picks up moisture, causing rain in Andhra Pradesh and Tamil Nadu during the winter months.
+
+However, many meteorologists argue that the monsoon is not a local phenomenon as explained by the traditional theory, but a general weather phenomenon along the entire tropical zone of Earth. This criticism does not deny the role of differential heating of sea and land in generating monsoon winds, but casts it as one of several factors rather than the only one.
+
+**Significance:**
+
+The monsoon is the primary delivery mechanism for fresh water in the Indian subcontinent. As such, it affects the environment (and associated flora, fauna, and ecosystems), agriculture, society, hydro-power production, and geography of the subcontinent (like the availability of fresh water in water bodies and the underground water table), with all of these factors cumulatively contributing to the health of the economy of affected countries.
+
+**Geographical (wettest spots on Earth):**
+
+Mawsynram and Cherrapunji, both in the Indian state of Meghalaya, alternate as the wettest places on Earth given the quantity of their rainfall, though there are other cities with similar claims. They receive more than 11,000 millimeters of rain each from the monsoon.
+
+**Agricultural:**
+
+In India, which has historically had a primarily agrarian economy, the services sector recently overtook the farm sector in terms of GDP contribution. However, the agriculture sector still contributes 17-20% of GDP[48] and is the largest employer in the country, with about 60% of Indians dependent on it for employment and livelihood. About 49% of India's land is agricultural; that number rises to 55% if associated wetlands, dryland farming areas, etc., are included. Because more than half of these farmlands are rain-fed, the monsoon is critical to food sufficiency and quality of life.
+
+Despite progress in alternative forms of irrigation, agricultural dependence on the monsoon remains far from insignificant. Therefore, the agricultural calendar of India is governed by the monsoon. Any fluctuations in the time distribution, spatial distribution, or quantity of the monsoon rains may lead to floods or droughts, causing the agricultural sector to suffer. This has a cascading effect on the secondary economic sectors, the overall economy, food inflation, and therefore the general population's quality and cost of living.
+
+**Economic:**
+
+The economic significance of the monsoon is aptly described by Pranab Mukherjee's remark that the monsoon is the "real finance minister of India". A good monsoon results in better agricultural yields, which brings down prices of essential food commodities and reduces imports, thus reducing food inflation overall. Better rains also result in increased hydroelectric production. All of these factors have positive ripple effects throughout the economy of India.
+
+The down side however is that when monsoon rains are weak, crop production is low leading to higher food prices with limited supply. As a result, the Indian government is actively working with farmers and the nation's meteorological department to produce more drought resistant crops.
+
+**Social:**
+
+D. Subbarao, former governor of the Reserve Bank of India, emphasized during a quarterly review of India's monetary policy that the lives of Indians depend on the performance of the monsoon. His own career prospects, his emotional well-being, and the performance of his monetary policy are all "a hostage" to the monsoon, he said, as is the case for most Indians. Additionally, farmers rendered jobless by failed monsoon rains tend to migrate to cities. This crowds city slums and aggravates the infrastructure and sustainability of city life.
+
+**Travel:**
+
+In the past, Indians usually refrained from traveling during monsoons for practical as well as religious reasons. But with the advent of globalization, such travel is gaining popularity. Places like Kerala and the Western Ghats get a large number of tourists, both local and foreigners, during the monsoon season. Kerala is one of the top destinations for tourists interested in Ayurvedic treatments and massage therapy. One major drawback of traveling during the monsoon is that most wildlife sanctuaries are closed. Also, some mountainous areas, especially in Himalayan regions, get cut off when roads are damaged by landslides and floods during heavy rains.
+
+**Environmental:**
+
+The monsoon is the primary bearer of fresh water to the area. The peninsular/Deccan rivers of India are mostly rain-fed and non-perennial in nature, depending primarily on the monsoon for water supply. Most of the coastal rivers of Western India are also rain-fed and monsoon-dependent. As such, the flora, fauna, and entire ecosystems of these areas rely heavily on the monsoon.

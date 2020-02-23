@@ -1,0 +1,55 @@
+--- 
+title: "A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models"
+author: "Niteshkumar Jha </br> Akshay Jadhav"
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[RO,RE]{M.Sc.(Applied Statistics), Department of Statistics, SPU}
+- \fancyhead[LO,LE]{ }
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{array}
+- \usepackage{multirow}
+- \usepackage{wrapfig}
+- \usepackage{float}
+- \usepackage{colortbl}
+- \usepackage{pdflscape}
+- \usepackage{tabu}
+- \usepackage{threeparttable}
+- \usepackage{threeparttablex}
+- \usepackage[normalem]{ulem}
+- \usepackage{makecell}
+- \usepackage{xcolor}
+
+subparagraph: true
+output: 
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    latex_engine: xelatex
+    citation_package: natbib
+mainfont: Times New Roman
+fontsize: 12pt
+linestretch: 1.5
+toc-depth: 1
+lof: True
+lot: True
+site: bookdown::bookdown_site
+documentclass: book
+classoption: openany
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: no
+nocite: |
+  @Box
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

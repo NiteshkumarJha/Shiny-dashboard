@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 APPENDEX | A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 APPENDEX | A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 APPENDEX | A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Niteshkumar Jha  Akshay Jadhav" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="session-info.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
+<li class="chapter" data-level="2" data-path="objective.html"><a href="objective.html"><i class="fa fa-check"></i><b>2</b> OBJECTIVE</a></li>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> METHODOLOGY</a></li>
+<li class="chapter" data-level="4" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>4</b> DATA PREPROCESSING</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-preprocessing.html"><a href="data-preprocessing.html#checking-and-loading-libraries"><i class="fa fa-check"></i><b>4.1</b> Checking and loading libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="data-preprocessing.html"><a href="data-preprocessing.html#load-libraries"><i class="fa fa-check"></i><b>4.2</b> Load libraries</a></li>
+<li class="chapter" data-level="4.3" data-path="data-preprocessing.html"><a href="data-preprocessing.html#data-preprocessing-1"><i class="fa fa-check"></i><b>4.3</b> Data Preprocessing</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-preprocessing.html"><a href="data-preprocessing.html#data-import"><i class="fa fa-check"></i><b>4.3.1</b> <em>Data Import</em></a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-preprocessing.html"><a href="data-preprocessing.html#structure-of-data"><i class="fa fa-check"></i><b>4.3.2</b> <em>Structure of data</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>5</b> EXPLORATORY DATA ANALYSIS</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>5.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#checking-distribution"><i class="fa fa-check"></i><b>5.2</b> Checking distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#all-series"><i class="fa fa-check"></i><b>5.2.1</b> <em>All series</em></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#annual-rainfall"><i class="fa fa-check"></i><b>5.2.2</b> <strong><em>Annual rainfall</em></strong></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#monsoon-rainfall"><i class="fa fa-check"></i><b>5.2.3</b> <strong><em>Monsoon rainfall</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html"><i class="fa fa-check"></i><b>6</b> FORECASTING ANNUAL RAINFALL</a><ul>
+<li class="chapter" data-level="6.1" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#building-time-series-model"><i class="fa fa-check"></i><b>6.1</b> Building time series model</a></li>
+<li class="chapter" data-level="6.2" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#splitting-into-train-and-test"><i class="fa fa-check"></i><b>6.2.1</b> <strong><em>Splitting into train and test</em></strong></a></li>
+<li class="chapter" data-level="6.2.2" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#converting-data-into-time-series"><i class="fa fa-check"></i><b>6.2.2</b> <strong><em>Converting data into time series</em></strong></a></li>
+<li class="chapter" data-level="6.2.3" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#test-stationary-or-non-stationary"><i class="fa fa-check"></i><b>6.2.3</b> <strong><em>Test Stationary or Non-stationary</em></strong></a></li>
+<li class="chapter" data-level="6.2.4" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#forecasts-using-exponential-smoothing"><i class="fa fa-check"></i><b>6.2.4</b> <strong><em>Forecasts using Exponential Smoothing</em></strong></a></li>
+<li class="chapter" data-level="6.2.5" data-path="forecasting-annual-rainfall.html"><a href="forecasting-annual-rainfall.html#forecasts-using-neural-network-modals"><i class="fa fa-check"></i><b>6.2.5</b> <strong><em>Forecasts using Neural Network Modals</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html"><i class="fa fa-check"></i><b>7</b> FORECASTING MONSOON RAINFALL</a><ul>
+<li class="chapter" data-level="7.1" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#model-building-1"><i class="fa fa-check"></i><b>7.1</b> Model Building</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#splitting-into-train-and-test-1"><i class="fa fa-check"></i><b>7.1.1</b> <strong><em>Splitting into train and test</em></strong></a></li>
+<li class="chapter" data-level="7.1.2" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#converting-data-into-time-series-1"><i class="fa fa-check"></i><b>7.1.2</b> <strong><em>Converting data into time series</em></strong></a></li>
+<li class="chapter" data-level="7.1.3" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#test-stationary-or-non-stationary-1"><i class="fa fa-check"></i><b>7.1.3</b> <strong><em>Test Stationary or Non-stationary</em></strong></a></li>
+<li class="chapter" data-level="7.1.4" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecasts-using-exponential-smoothing-1"><i class="fa fa-check"></i><b>7.1.4</b> <strong><em>Forecasts using Exponential Smoothing</em></strong></a></li>
+<li class="chapter" data-level="7.1.5" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecast-using-arima-model"><i class="fa fa-check"></i><b>7.1.5</b> <em><strong><em>Forecast using ARIMA Model</em></strong></em></a></li>
+<li class="chapter" data-level="7.1.6" data-path="forecasting-monsoon-rainfall.html"><a href="forecasting-monsoon-rainfall.html#forecasts-using-neural-network-modals-1"><i class="fa fa-check"></i><b>7.1.6</b> <strong><em>Forecasts using Neural Network Modals</em></strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> CONCLUSION</a></li>
+<li class="chapter" data-level="9" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>9</b> SESSION INFO</a></li>
+<li class="chapter" data-level="10" data-path="appendex.html"><a href="appendex.html"><i class="fa fa-check"></i><b>10</b> APPENDEX</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>REFERENCES</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Comparative study on Indian Rainfall data using exploratory analysis and evaluating different time series models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendex" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> APPENDEX</h1>
+<p><strong>data.table</strong></p>
+<p>Data manipulation operations such as subset, group, update, join etc., are all inherently related. Keeping these related operations together allows for:
+1. concise and consistent syntax irrespective of the set of operations you would like to perform to achieve your end goal.
+2. performing analysis fluidly without the cognitive burden of having to map each operation to a particular function from a potentially huge set of functions available before performing the analysis.
+3. Automatically optimizing operations internally, and very effectively, by knowing precisely the data required for each operation, leading to very fast and memory efficient code.
+Briefly, if you are interested in reducing programming and compute time tremendously, then this package is for you. The philosophy that data. Table adheres to makes this possible. Our goal is to illustrate it through this series of vignettes.</p>
+<p><strong>dplyr</strong></p>
+<p>Describe what the dplyr package in R is used for. Apply common dplyr functions to manipulate data in R. Employ the ‘pipe’ operator to link together a sequence of functions. Employ the ‘mutate’ function to apply other chosen functions to existing columns and create new columns of data.</p>
+<p><strong>plyr</strong></p>
+<p>plyr is a set of tools for a common set of problems: you need to split up a big data structure into homogeneous pieces, apply a function to each piece and then combine all the results back together. For example, you might want to:
+• fit the same model each patient subsets of a data frame
+• quickly calculate summary statistics for each group
+• perform group-wise transformations like scaling or standardizing</p>
+<p>It’s already possible to do this with base R functions (like split and the apply family of functions), but plyr makes it all a bit easier with:
+• totally consistent names, arguments and outputs
+• convenient parallelization through the for each package
+• input from and output to data. frames, matrices and lists
+• progress bars to keep track of long running operations
+• built-in error recovery, and informative error messages
+• labels that are maintained across all transformations</p>
+<p>Considerable effort has been put into making plyr fast and memory efficient, and in many cases plyr is as fast as, or faster than, the built-in equivalents.
+A detailed introduction to plyr has been published in JSS: “The Split-Apply-Combine Strategy for Data Analysis”</p>
+<p><strong>Sqldf</strong></p>
+<p>sqldf is an R package for running SQL statements on R data frames, optimized for convenience. The user simply specifies an SQL statement in R using data frame names in place of table names and a database with appropriate table layouts/schema is automatically created, the data frames are automatically loaded into the database, the specified SQL statement is performed, the result is read back into R and the database is deleted all automatically behind the scenes making the database’s existence transparent to the user who only specifies the SQL statement. Surprisingly this can at times be even faster than the corresponding pure R calculation (although the purpose of the project is convenience and not speed). This link suggests that for aggregations over highly granular columns that sqldf is faster than another alternative tried. sqldf is free software published under the GNU General Public License that can be downloaded from CRAN.</p>
+<p>Printing nested tables in R – bridging between the {reshape} and {tables} packages
+This post shows how to print a prettier nested pivot table, created using the {reshape} package (similar to what you would get with Microsoft Excel), so you could print it either in the R terminal or as a LaTeX table. This task is done by bridging between the cast_df object produced by the {reshape} package, […]</p>
+<p><strong>pastecs v1.3.21</strong></p>
+<p>Regularization, decomposition and analysis of space-time series. The pastecs R package is a PNEC-Art4 and IFREMER (Benoit Belief <a href="mailto:Benoit.Beliaeff@ifremer.fr" class="email">Benoit.Beliaeff@ifremer.fr</a>) initiative to bring PASSTEC 2000 functionalities to R.</p>
+<p><strong>Name Description</strong></p>
+<p>AutoD2:- AutoD2, CrossD2 or CenterD2 analysis of a multiple time-series</p>
+<p>deccensus:-Time decomposition using the CENSUS II method</p>
+<p>disjoin:-Complete disjoined coded data (binary coding)</p>
+<p>marbio:-Several zooplankton taxa measured across a transect</p>
+<p>decloess:-Time series decomposition by the LOESS method</p>
+<p>decmedian:-Time series decomposition using a running median</p>
+<p>marphy:-Physico-chemical records at the same stations as for marbio</p>
+<p>reglin:-Regulation of a series using a linear interpolation</p>
+<p>extract:-Extract a subset of the original dataset</p>
+<p>regconst:-Regulate a series using the constant value method</p>
+<p>first:-Get the first element of a vector</p>
+<p>daystoyears:-Convert time units from “days” to “years” or back</p>
+<p>stat.desc:-Descriptive statistics on a data frame or time series</p>
+<p>buysbal:-Buys-Ballot table</p>
+<p>regspline:-Regulation of a time series using splines</p>
+<p>stat.pen:-Pennington statistics on a data frame or time series</p>
+<p>vario:-Compute and plot a semi-variorum</p>
+<p>match.tol:-Determine matching observation with a tolerance in time-scale</p>
+<p>regul:-Regulation of one or several time series using various methods</p>
+<p>pennington:-Calculate Pennington statistics</p>
+<p>stat.slide:-Sliding statistics</p>
+<p>trend.test:-Test if an increasing or decreasing trend exists in a time series</p>
+<p>tseries:-Convert a ‘regul’ or a ‘tsd’ object into a time series</p>
+<p>tsd:-Decomposition of one or several regular time series using various methods</p>
+<p>decdiff:-Time series decomposition using differences (trend elimination)</p>
+<p>decevf:-Time series decomposition using eigenvector filtering (EVF)</p>
+<p>gleissberg.table:-Table of probabilities according to the Gleissberg distribution</p>
+<p>is.tseries:-Is this object a time series?</p>
+<p>pgleissberg:-Gleissberg distribution probability</p>
+<p>regarea:-Regulate a series using the area method</p>
+<p>regul.adj:-Adjust regulation parameters</p>
+<p>regul.screen:-Test various regulation parameters</p>
+<p>abund:-Sort variables by abundance</p>
+<p>bnr:-A data frame of 163 benthic species measured across a transect</p>
+<p>disto:-Compute and plot a distogram</p>
+<p>escouf:-Choose variables using the Escoufier’s equivalent vectors method</p>
+<p>last:-Get the last element of a vector</p>
+<p>local.trend:-Calculate local trends using cumsum</p>
+<p>releve:-A data frame of six phytoplankton taxa followed in time at one station</p>
+<p>specs:-Collect parameters (“specifications”) from one object to use them in another analysis</p>
+<p>turnogram:-Calculate and plot a turnogram for a regular time series</p>
+<p>turnpoints:-Analyze turning points (peaks or pits)</p>
+<p>GetUnitText:-Format a nice time units for labels in graphs</p>
+<p>decaverage:-Time series decomposition using a moving average</p>
+<p>decreg:-Time series decomposition using a regression model</p>
+<p><strong>psych</strong></p>
+<p>Procedures for Psychological, Psychometric, and Personality Research
+A general purpose toolbox for personality, psychometric theory and experimental psychology. Functions are primarily for multivariate analysis and scale construction using factor analysis, principal component analysis, cluster analysis and reliability analysis, although others provide basic descriptive statistics. Item Response Theory is done using factor analysis of tetra choric and poly choric correlations. Functions for analyzing data at multiple levels include within and between group statistics, including correlations and factor analysis. Functions for simulating and testing particular item and test structures are included. Several functions serve as a useful front end for structural equation modeling. Graphical displays of path diagrams, factor analysis and structural equation models are created using basic graphics. Some of the functions are written to support a book on psychometric theory as well as publications in personality research</p>
+<p><strong>tidy quant</strong></p>
+<p>Bringing financial analysis to the ‘tidyverse’. The ‘tidyquant’ package provides a convenient wrapper to various ‘xts’, ‘zoo’, ‘quantmod’, ‘TTR’ and ‘PerformanceAnalytics’ package functions and returns the objects in the tidy ‘tibble’ format. The main advantage is being able to use quantitative functions with the ‘tidyverse’ functions including ‘purrr’, ‘dplyr’, ‘tidyr’, ‘ggplot2’, ‘lubridate’, etc. See the ‘tidyquant’ website for more information, documentation and examples.
+nortest: Tests for Normality
+Five omnibus tests for testing the composite hypothesis of normality.</p>
+<p><strong>tseries</strong></p>
+<p>Time series analysis and computational finance.</p>
+<p><strong>ggthemes</strong> Extra Themes, Scales and Geoms for ‘ggplot2’</p>
+<p>Some extra themes, geoms, and scales for ‘ggplot2’. Provides ‘ggplot2’ themes and scales that replicate the look of plots by Edward Tufte, Stephen Few, ‘Fivethirtyeight’, ‘The Economist’, ‘Stata’, ‘Excel’, and ‘The Wall Street Journal’, among others. Provides ‘geoms’ for Tufte’s box plot and range frame.
+<strong>ggplot2</strong></p>
+<p>Create Elegant Data Visualisations Using the Grammar of Graphics
+A system for ‘declaratively’ creating graphics, based on “The Grammar of Graphics”. You provide the data, tell ‘ggplot2’ how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
+<p><strong>scales</strong></p>
+<p>Scale Functions for Visualization</p>
+<p>Graphical scales map data to aesthetics, and provide methods for automatically determining breaks and labels for axes and legends.</p>
+<p><strong>Forecast</strong></p>
+<p>Forecasting Functions for Time Series and Linear Models</p>
+<p>Methods and tools for displaying and analysing univariate time series forecasts including exponential smoothing via state space models and automatic ARIMA modelling.</p>
+<p><strong>Metrics</strong></p>
+<p>Evaluation Metrics for Machine Learning</p>
+<p>An implementation of evaluation metrics in R that are commonly used in supervised machine learning. It implements metrics for regression, time series, binary classification, classification, and information retrieval problems. It has zero dependencies and a consistent, simple interface for all functions.</p>
+<p><strong>kableExtra</strong></p>
+<p>Construct Complex Table with ‘kable’ and Pipe Syntax</p>
+<p>Build complex HTML or ‘LaTeX’ tables using ‘kable()’ from ‘knitr’ and the piping syntax from ‘magrittr’. Function ‘kable()’ is a light weight table generator coming from ‘knitr’. This package simplifies the way to manipulate the HTML or ‘LaTeX’ codes generated by ‘kable()’ and allows users to construct complex tables and customize styles using a readable syntax.</p>
+<p><strong>pander</strong></p>
+<p>An R ‘Pandoc’ Writer</p>
+<p>Contains some functions catching all messages, ‘stdout’ and other useful information while evaluating R code and other helpers to return user specified text elements (like: header, paragraph, table, image, lists etc.) in ‘pandoc’ markdown or several type of R objects similarly automatically transformed to markdown format. Also capable of exporting/converting (the resulting) complex ‘pandoc’ documents to e.g. HTML, ‘PDF’, ‘docx’ or ‘odt’. This latter reporting feature is supported in brew syntax or with a custom reference class with a smarty caching ‘backend’.</p>
+<p><strong>tidyverse</strong></p>
+<p>Easily Install and Load the ‘Tidy verse’</p>
+<p>The ‘tidyverse’ is a set of packages that work in harmony because they share common data representations and ‘API’ design. This package is designed to make it easy to install and load multiple ‘tidyverse’ packages in a single step. Learn more about the ‘tidyverse’ at.</p>
+<p><strong>lubridate</strong></p>
+<p>Make Dealing with Dates a Little Easier</p>
+<p>Functions to work with date-times and time-spans: fast and user friendly parsing of date-time data, extraction and updating of components of a date-time (years, months, days, hours, minutes, and seconds), algebraic manipulation on date-time and time-span objects. The ‘lubridate’ package has a consistent and memorable syntax that makes working with dates easy and fun. Parts of the ‘CCTZ’ source code, released under the Apache 2.0 License, are included in this package. See.</p>
+<p><strong>timeSeries</strong></p>
+<p>Rmetrics - Financial Time Series Objects</p>
+<p>Provides a class and various tools for financial time series. This includes basic functions such as scaling and sorting, sub setting, mathematical operations and statistical functions.</p>
+<p><strong>magrittr</strong></p>
+<p>A Forward-Pipe Operator for R</p>
+<p>Provides a mechanism for chaining commands with a new forward-pipe operator, %&gt;%. This operator will forward a value, or the result of an expression, into the next function call/expression. There is flexible support for the type of right-hand side expressions. For more information, see package vignette. To quote Rene Magritte, “Cenci nest pas un pipe.”</p>
+<p><strong>recipes</strong></p>
+<p>Preprocessing Tools to Create Design Matrices</p>
+<p>An extensible framework to create and preprocess design matrices. Recipes consist of one or more data manipulation and analysis “steps”. Statistical parameters for the steps can be estimated from an initial data set and then applied to other data sets. The resulting design matrices can then be used as inputs into statistical or machine learning models.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="session-info.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Final.pdf", "Final.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
